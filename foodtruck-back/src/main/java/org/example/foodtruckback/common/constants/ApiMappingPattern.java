@@ -11,6 +11,7 @@ public class ApiMappingPattern {
         private Auths() {}
 
         public static final String ROOT = BASE + "/auths";
+
         public static final String SIGNUP = "/signup";
         public static final String LOGIN = "/login";
         public static final String LOGOUT = "/logout";
@@ -21,6 +22,7 @@ public class ApiMappingPattern {
         private Users() {}
 
         public static final String ROOT = BASE + "/users";
+        
         public static final String ME = "/me";
         public static final String BY_ID = "/{userId}";
     }
@@ -29,6 +31,7 @@ public class ApiMappingPattern {
         private Roles() {}
 
         public static final String ROOT = BASE + "/roles";
+
         public static final String ADD = "/add";
         public static final String DELETE = "/delete";
     }
@@ -40,5 +43,36 @@ public class ApiMappingPattern {
         public static final String BY_ID = "/{scheduleId}";
     }
 
+    public static class Truck {
+        private Truck () {};
+
+        public static final String ROOT = BASE;
+
+        public static final String COLLECTION = "/trucks";
+        public static final String BY_ID = "/trucks/{truckId}";
+
+    }
+
+    public static class Menu {
+        private Menu () {};
+
+        public static final String ROOT = BASE;
+
+        public static final String COLLECTION = Truck.BY_ID + "/menu";
+        public static final String BY_ID = COLLECTION + "/{menuId}";
+        public static final String IS_SOLD_OUT = BY_ID + "/sold-out";
+    }
+
+    public static class Reservation {
+        private Reservation () {};
+
+        public static final String ROOT = BASE + "/reservations";
+
+        public static final String BY_ID = "/{reservationId}";
+        public static final String CANCEL = "/{reservationId}/cancel";
+        public static final String CONFIRM = "/{reservationId}/confirm";
+        public static final String NO_SHOW = "/{reservationId}/no-show";
+
+    }
 
 }
