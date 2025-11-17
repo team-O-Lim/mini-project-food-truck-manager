@@ -1,4 +1,4 @@
-package org.example.foodtruckback.common.units;
+package org.example.foodtruckback.common.utils;
 
 public class DateUtils {
 }
