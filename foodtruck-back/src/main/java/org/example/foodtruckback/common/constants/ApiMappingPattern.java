@@ -36,13 +36,6 @@ public class ApiMappingPattern {
         public static final String DELETE = "/delete";
     }
 
-    private static class Schedules {
-        private Schedules() {}
-
-        public static final String ROOT = BASE + "/schedules";
-        public static final String BY_ID = "/{scheduleId}";
-    }
-
     public static class Truck {
         private Truck () {};
 
@@ -51,6 +44,8 @@ public class ApiMappingPattern {
         public static final String COLLECTION = "/trucks";
         public static final String BY_ID = "/trucks/{truckId}";
 
+        public static final String SCHEDULE_ROOT = BY_ID + "/schedules";
+        public static final String SCHEDULE_BY_ID = SCHEDULE_ROOT + "/{scheduleId}";
     }
 
     public static class Menu {
@@ -72,7 +67,5 @@ public class ApiMappingPattern {
         public static final String CANCEL = "/{reservationId}/cancel";
         public static final String CONFIRM = "/{reservationId}/confirm";
         public static final String NO_SHOW = "/{reservationId}/no-show";
-
     }
-
 }
