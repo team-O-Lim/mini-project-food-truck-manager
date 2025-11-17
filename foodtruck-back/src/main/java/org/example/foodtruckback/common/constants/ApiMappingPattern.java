@@ -22,7 +22,7 @@ public class ApiMappingPattern {
 
         public static final String ROOT = BASE + "/users";
         public static final String ME = "/me";
-        public static final String BY_ID = "/userId";
+        public static final String BY_ID = "/{userId}";
     }
 
     private static class Roles {
@@ -31,6 +31,13 @@ public class ApiMappingPattern {
         public static final String ROOT = BASE + "/roles";
         public static final String ADD = "/add";
         public static final String DELETE = "/delete";
+    }
+
+    private static class Schedules {
+        private Schedules() {}
+
+        public static final String ROOT = BASE + "/schedules";
+        public static final String BY_ID = "/{scheduleId}";
     }
 
 
