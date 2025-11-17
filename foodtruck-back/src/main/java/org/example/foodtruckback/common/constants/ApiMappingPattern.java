@@ -64,8 +64,8 @@ public class ApiMappingPattern {
         public static final String ROOT = BASE + "/reservations";
 
         public static final String BY_ID = "/{reservationId}";
-        public static final String CANCEL = "/{reservationId}/cancel";
-        public static final String CONFIRM = "/{reservationId}/confirm";
-        public static final String NO_SHOW = "/{reservationId}/no-show";
+        public static final String CANCEL = BY_ID + "/cancel";
+        public static final String CONFIRM = BY_ID + "/confirm";
+        public static final String NO_SHOW = BY_ID + "/no-show";
     }
 }
