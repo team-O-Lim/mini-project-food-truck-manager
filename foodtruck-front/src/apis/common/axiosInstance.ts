@@ -22,7 +22,7 @@ privateApi.interceptors.request.use(
 );
 
 privateApi.interceptors.response.use(
-  (Response) => Response,
+  (response) => response,
   async (e) => {
     return Promise.reject(e);
   }
