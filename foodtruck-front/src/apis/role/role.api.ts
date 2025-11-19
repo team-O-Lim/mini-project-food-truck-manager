@@ -1,23 +1,38 @@
-import type { RoleCreateRequest, RoleCreateResponse, RoleResponse } from "@/types/role/role.dto";
+import { type RoleCreateRequest, type RoledeleteResponse, type RoleListResponse } from "@/types/role/role.dto";
+import { privateApi, publicApi } from "../common/axiosInstance";
 import { ROLE_PATH } from "./role.path";
 import type { ApiResponse } from "@/types/common/ApiResponse";
-import { privateApi } from "../common/axiosInstance";
+import { USER_PATH } from "../user/user.path";
+
 
 export const roleApi = {
-  add: async (req: RoleCreateRequest): Promise<RoleCreateResponse> => {
-    const res = await privateApi.
-    post<ApiResponse<RoleCreateResponse>>(
-      ROLE_PATH.ADD, req
+  // 권한 목록
+  getroleList: async(): Promise<RoleListResponse> => {
+    const res = await publicApi.
+    get<ApiResponse<RoleListResponse>>(
+      ROLE_PATH.ROOT
     );
-    
+
     return res.data.data;
   },
 
-  delete: async (): Promise<RoleResponse> => {
-    const res = await privateApi.delete<ApiResponse<RoleResponse>>(
-      ROLE_PATH.DELETE
-    );
+  // 권한 추가
+  add: async (userId: number): Promise<RoleCreateRequest> => {
+    const res = await privateApi.
+    post<ApiResponse<RoleCreateRequest>>(
+      USER_PATH.BY_ID(userId)
+    )
 
     return res.data.data;
-  }
+  },
+
+  // 권한 제거
+  delete: async (userId: number, roleName: string): Promise<RoledeleteResponse> => {
+    const res = await privateApi.
+    delete<ApiResponse<RoledeleteResponse>>(
+      USER_PATH.DELETE(userId, roleName)
+    )
+
+    return res.data.data;
+  } 
 }

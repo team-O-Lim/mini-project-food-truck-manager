@@ -25,15 +25,16 @@ public class ApiMappingPattern {
 
         public static final String ME = "/me";
         public static final String BY_ID = "/{userId}";
+
+        public static final String ROLES = "/roles";
+        public static final String DELETE = BY_ID + ROLES + "/{roleName}";
     }
 
     private static class Roles {
         private Roles() {}
 
-        public static final String ROOT = BASE + "/roles";
+        public static final String ROOT = BASE + Users.ROLES;
 
-        public static final String ADD = "/add";
-        public static final String DELETE = "/delete";
     }
 
     public static class Truck {
