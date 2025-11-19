@@ -39,11 +39,11 @@ public class ApiMappingPattern {
     public static class Truck {
         private Truck () {};
 
-        public static final String ROOT = BASE;
+        public static final String ROOT = BASE + "/trucks";
 
-        public static final String COLLECTION = "/trucks";
-        public static final String BY_ID = "/trucks/{truckId}";
+        public static final String BY_ID = "/{truckId}";
 
+        public static final String TRUCK_MENU = BY_ID + "/menu";
         public static final String SCHEDULE_ROOT = BY_ID + "/schedules";
         public static final String SCHEDULE_BY_ID = SCHEDULE_ROOT + "/{scheduleId}";
     }
@@ -51,11 +51,10 @@ public class ApiMappingPattern {
     public static class Menu {
         private Menu () {};
 
-        public static final String ROOT = BASE;
+        public static final String ROOT = BASE + "/menu";
 
-        public static final String COLLECTION = Truck.BY_ID + "/menu";
-        public static final String BY_ID = COLLECTION + "/{menuId}";
-        public static final String IS_SOLD_OUT = BY_ID + "/sold-out";
+        public static final String BY_ID = "/{menuId}";
+        public static final String SOLD_OUT = BY_ID + "/soldout";
     }
 
     public static class Reservation {
@@ -80,17 +79,6 @@ public class ApiMappingPattern {
         public static final String CANCEL = BY_ID + "/cancel";
         // refund
         public static final String REFUND = BY_ID + "/refund";
-    }
-
-    // 주문 품목
-    public static final class OrderItem {
-        private OrderItem () {}
-
-        public static final String ROOT = Order.ROOT + Order.BY_ID + "/order-items";
-
-        public static final String BY_ID = "/{order-itemId}";
-        // 주문 후 주문 품목에 대한 추가/수정/삭제
-        public static final String MODIFY = ROOT + BY_ID;
     }
 
     // 결제
