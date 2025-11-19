@@ -6,6 +6,7 @@ import type { ApiResponse } from "@/types/common/ApiResponse";
 
 
 export const authApi = {
+  // 회원가입
   signup: async (req: SignupRequest):
   Promise<SignupResponse> => {
     const res = await publicApi.post<ApiResponse<SignupResponse>>(
@@ -14,6 +15,7 @@ export const authApi = {
     return res.data.data;
   },
 
+  // 로그인
   login: async (req: LoginRequest):
   Promise<LoginResponse> => {
     const res = await publicApi.post<ApiResponse<LoginResponse>>(
@@ -22,6 +24,7 @@ export const authApi = {
     return res.data.data;
   },
 
+  // 로그아웃
   logout: async ():
   Promise<LogoutResponse> => {
     const res = await privateApi.post<ApiResponse<LogoutResponse>>(
@@ -30,6 +33,7 @@ export const authApi = {
     return res.data.data;
   },
 
+  // 리프레시
   refresh: async (req: RefreshRequest):
   Promise<RefreshResponse> => {
     const res = await publicApi.post<ApiResponse<RefreshResponse>>(
