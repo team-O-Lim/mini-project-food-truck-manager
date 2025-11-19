@@ -81,17 +81,6 @@ public class ApiMappingPattern {
         public static final String REFUND = BY_ID + "/refund";
     }
 
-    // 주문 품목
-    public static final class OrderItem {
-        private OrderItem () {}
-
-        public static final String ROOT = Order.ROOT + Order.BY_ID + "/order-items";
-
-        public static final String BY_ID = "/{order-itemId}";
-        // 주문 후 주문 품목에 대한 추가/수정/삭제
-        public static final String MODIFY = ROOT + BY_ID;
-    }
-
     // 결제
     public static final class Payment {
         private Payment () {}
