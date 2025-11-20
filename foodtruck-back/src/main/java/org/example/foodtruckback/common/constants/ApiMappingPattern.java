@@ -86,9 +86,8 @@ public class ApiMappingPattern {
     public static final class Payment {
         private Payment () {}
 
-        public static final String ROOT = Order.ROOT + Order.BY_ID + "/payments";
-        public static final String BY_ID = "/{paymentId}";
-        public static final String CAPTURE =  ROOT + BY_ID + "/capture";
+        public static final String ROOT = BASE+ "/payments";
+        public static final String CAPTURE = Order.BY_ID + "/capture";
     }
 
 }
