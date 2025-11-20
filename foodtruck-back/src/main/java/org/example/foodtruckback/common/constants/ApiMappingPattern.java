@@ -25,25 +25,26 @@ public class ApiMappingPattern {
 
         public static final String ME = "/me";
         public static final String BY_ID = "/{userId}";
+
+        public static final String ROLES = "/roles";
+        public static final String DELETE = BY_ID + ROLES + "/{roleName}";
     }
 
     private static class Roles {
         private Roles() {}
 
-        public static final String ROOT = BASE + "/roles";
+        public static final String ROOT = BASE + Users.ROLES;
 
-        public static final String ADD = "/add";
-        public static final String DELETE = "/delete";
     }
 
     public static class Truck {
         private Truck () {};
 
-        public static final String ROOT = BASE;
+        public static final String ROOT = BASE + "/trucks";
 
-        public static final String COLLECTION = "/trucks";
-        public static final String BY_ID = "/trucks/{truckId}";
+        public static final String BY_ID = "/{truckId}";
 
+        public static final String TRUCK_MENU = BY_ID + "/menu";
         public static final String SCHEDULE_ROOT = BY_ID + "/schedules";
         public static final String SCHEDULE_BY_ID = SCHEDULE_ROOT + "/{scheduleId}";
     }
@@ -51,11 +52,10 @@ public class ApiMappingPattern {
     public static class Menu {
         private Menu () {};
 
-        public static final String ROOT = BASE;
+        public static final String ROOT = BASE + "/menu";
 
-        public static final String COLLECTION = Truck.BY_ID + "/menu";
-        public static final String BY_ID = COLLECTION + "/{menuId}";
-        public static final String IS_SOLD_OUT = BY_ID + "/sold-out";
+        public static final String BY_ID = "/{menuId}";
+        public static final String SOLD_OUT = BY_ID + "/soldout";
     }
 
     public static class Reservation {
