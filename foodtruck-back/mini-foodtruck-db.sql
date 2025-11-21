@@ -111,8 +111,8 @@ CREATE TABLE menu_items (
   option_text VARCHAR(255) NULL,              -- 간단 옵션 설명(세부 옵션 테이블은 생략)
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  FOREIGN KEY (truck_id) REFERENCES trucks(id),
-  UNIQUE KEY `uk_menu_truck_name` (truck_id, name),
+  FOREIGN KEY `fk_truck_menu_menu_item`(truck_id) REFERENCES trucks(id),
+  UNIQUE KEY `uk_menu_item_truck_name` (truck_id, name),
   INDEX `idx_menu_truck` (truck_id, is_sold_out)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -126,11 +126,11 @@ CREATE TABLE reservations (
   note VARCHAR(255) NULL,
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  FOREIGN KEY (schedule_id) REFERENCES truck_schedules(id),
-  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY `fk_resv_schedule`(schedule_id) REFERENCES truck_schedules(id),
+  FOREIGN KEY `fk_resv_user`(user_id) REFERENCES users(id),
   CONSTRAINT `chk_resv_status` CHECK (status IN ('PENDING','CONFIRMED','CANCELED','NO_SHOW','REFUNDED')),
   INDEX `idx_resv_user_time` (user_id, pickup_time),
-  INDEX `idx_resv_schedule (schedule_id, status)
+  INDEX `idx_resv_schedule` (schedule_id, status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 4) 주문(현장/사전 공용) + 품목
@@ -163,7 +163,7 @@ CREATE TABLE order_items (
   unit_price DECIMAL(10,2) NOT NULL,
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
   FOREIGN KEY (menu_item_id) REFERENCES menu_items(id),
-  INDEX idx_order_items_order (order_id)
+  INDEX `idx_order_items_order` (order_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 테스트----------------------------------------------- 
