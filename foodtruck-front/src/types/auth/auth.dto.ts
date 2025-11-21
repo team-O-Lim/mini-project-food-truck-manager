@@ -1,5 +1,8 @@
 import type { RoleType } from "../role/role.type";
 
+// Request //
+
+// 회원가입
 export interface SignupRequest {
   name: string;
   loginId: string;
@@ -8,6 +11,38 @@ export interface SignupRequest {
   phone: string;
 }
 
+// 로그인
+export interface LoginRequest {
+  loginId: string;
+  password: string;
+}
+
+// 로그아웃
+export interface LogoutRequest {
+  refreshToken: string
+}
+
+// 아이디 찾기
+export interface FindIdRequest {
+  email: string
+}
+
+// 비밀번호 찾기
+export interface PasswordResetRequest {
+  token: string,
+  newPassword: string,
+  confirmPassword: string
+}
+
+// 리프레시 
+export interface RefreshRequest {
+  refreshToken: string
+}
+
+// -------------------------------------------
+// Response // 
+
+// 회원가입
 export interface SignupResponse {
   name: string;
   loginId: string;
@@ -15,39 +50,21 @@ export interface SignupResponse {
   phone: string;
 }
 
-export interface LoginRequest {
-  loginId: string;
-  password: string;
-}
-
+// 로그인
 export interface LoginResponse {
-  tokenType: string,
   accessToken: string,
-  expiresAt: number,
-  userNmae: string,
-  roles : RoleType[]
+  refreshToke: string,
+  accessTokenExpiresInMillis: number
 }
 
-export interface FindIdRequest {
-  email: string
-}
-
+// 아이디 찾기
 export interface FindIdResponse {
   LoginId: string;
 }
 
-export interface ResetPWRequest {
-  loginId: string,
-  message: string,
-  password: string,
-  confirmPasswrod: string
+
+// 비밀번호 찾기
+export interface ResetVerifyResponse {
+  valid: boolean,
+  email: string
 }
-
-export interface ResetPWResponse {
-  loginId: string,
-}
-
-
-export interface RefreshRequest {}
-
-export interface RefreshResponse {}

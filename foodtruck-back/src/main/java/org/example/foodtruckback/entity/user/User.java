@@ -2,6 +2,7 @@ package org.example.foodtruckback.entity.user;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.foodtruckback.entity.base.BaseTimeEntity;
@@ -43,6 +44,7 @@ public class User extends BaseTimeEntity {
     private Set<UserRole> userRoles = new HashSet<>();
 
     // phone (포함)
+    @Builder
     public User(String name, String loginId, String password, String email, String phone) {
 
         this.name = name;

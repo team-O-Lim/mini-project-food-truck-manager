@@ -16,6 +16,11 @@ public class ApiMappingPattern {
         public static final String LOGIN = "/login";
         public static final String LOGOUT = "/logout";
         public static final String REFRESH = "/refresh";
+
+        public static final String FIND_ID = "/find-id";
+        public static final String PASSWORD = "/password";
+        public static final String PASSWORD_RESET = PASSWORD + "/reset";
+        public static final String PASSWORD_VERIFY = PASSWORD +  "/verify";
     }
 
     private static class Users {
