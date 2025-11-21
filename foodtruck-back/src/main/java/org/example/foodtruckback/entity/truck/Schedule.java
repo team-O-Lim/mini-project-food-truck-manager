@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.foodtruckback.common.enums.ScheduleStatus;
 import org.example.foodtruckback.entity.base.BaseTimeEntity;
+import org.example.foodtruckback.entity.location.Location;
 
 import java.time.LocalDateTime;
 

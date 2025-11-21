@@ -1,0 +1,31 @@
+package org.example.foodtruckback.entity.location;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(
+        name = "locations",
+        indexes = @Index(name = "idx_locations_geo", columnList = "latitude, longitude")
+)
+@Getter
+@NoArgsConstructor
+public class Location {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "latitude", nullable = false)
+    private BigDecimal latitude;
+
+    @Column(name = "longitude", nullable = false)
+    private BigDecimal longitude;
+
+    @Column(name = "created_at", nullable = false , columnDefinition = "DATETIME(6)")
+    private LocalDateTime createdAt;
+}

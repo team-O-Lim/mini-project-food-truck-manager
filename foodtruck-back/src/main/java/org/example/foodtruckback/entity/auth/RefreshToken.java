@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.foodtruckback.common.enums.RoleType;
+import org.example.foodtruckback.entity.base.BaseTimeEntity;
 import org.example.foodtruckback.entity.user.User;
 
 import java.time.Instant;
@@ -19,7 +20,7 @@ import java.time.Instant;
 )
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RefreshToken {
+public class RefreshToken extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     private Long id;

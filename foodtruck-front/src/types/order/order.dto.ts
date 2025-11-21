@@ -9,7 +9,6 @@ export interface OrderCreateRequest {
 }
 
 export interface OrderUpdateRequest {
-  scheduleId: number;
   items: CreateOrderItem[];
 }
 

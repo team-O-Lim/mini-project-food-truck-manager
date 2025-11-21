@@ -5,8 +5,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.foodtruckback.common.enums.ReservationStatus;
-import org.example.foodtruckback.entity.User;
 import org.example.foodtruckback.entity.base.BaseTimeEntity;
+import org.example.foodtruckback.entity.user.User;
 import org.example.foodtruckback.entity.truck.Schedule;
 
 import java.math.BigDecimal;
@@ -40,7 +40,7 @@ public class Reservation extends BaseTimeEntity {
         private LocalDateTime pickupTime;
 
         @Column(nullable = false, precision = 10, scale = 2)
-        private BigDecimal totalAmount;
+        private int totalAmount;
 
         @Enumerated(EnumType.STRING)
         @Column(nullable = false, length = 20)

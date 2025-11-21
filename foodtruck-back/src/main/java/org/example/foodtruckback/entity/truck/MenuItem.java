@@ -35,7 +35,7 @@ public class MenuItem extends BaseTimeEntity {
     private String name;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal price;
+    private int price;
 
     @Column(nullable = false)
     private boolean isSoldOut = false;

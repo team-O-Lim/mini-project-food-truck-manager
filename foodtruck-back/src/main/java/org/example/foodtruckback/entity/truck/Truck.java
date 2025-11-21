@@ -5,8 +5,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.foodtruckback.common.enums.TurckStatus;
-import org.example.foodtruckback.entity.base.BaseTimeEntity;
 import org.example.foodtruckback.entity.user.User;
+import org.example.foodtruckback.entity.base.BaseTimeEntity;
 
 import java.time.LocalDate;
 
