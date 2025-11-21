@@ -1,13 +1,13 @@
-export interface RoleItemResponse {
-
+export interface RoleNameResponse {
+  roleName: string;
 }
 
-export type RoleListResponse = RoleItemResponse[];
+export type RoleListResponse = RoleNameResponse[];
 
 export interface RoleCreateRequest {
-
+  roleName: string;
 }
 
-export interface RoledeleteResponse {
-  
+export interface RoleCreateResponse {
+  roleName: string;
 }
