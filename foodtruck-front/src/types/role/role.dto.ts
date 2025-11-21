@@ -1,13 +1,15 @@
+import type { RoleType } from "./role.type";
+
 export interface RoleNameResponse {
-  roleName: string;
+  roleName: RoleType;
 }
 
 export type RoleListResponse = RoleNameResponse[];
 
 export interface RoleCreateRequest {
-  roleName: string;
+  roleName: RoleType;
 }
 
 export interface RoleCreateResponse {
-  roleName: string;
+  roleName: RoleType;
 }

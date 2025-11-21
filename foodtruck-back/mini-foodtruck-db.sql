@@ -1,5 +1,5 @@
 
-DROP DATABASE IF EXISTS `mini-food-truck-db`;
+DROP DATABASE IF EXISTS `mini-foodtruck-db`;
 CREATE DATABASE IF NOT EXISTS `mini-foodtruck-db`
   CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `mini-foodtruck-db`;
@@ -29,8 +29,8 @@ CREATE TABLE users (
   phone VARCHAR(30) NULL,
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  CONSTRAINT uk_users_login UNIQUE(login_id),
-  CONSTRAINT uk_users_email UNIQUE(email)
+  CONSTRAINT `uk_users_login_id` UNIQUE(login_id),
+  CONSTRAINT `uk_users_email` UNIQUE(email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE roles (
@@ -38,18 +38,19 @@ CREATE TABLE roles (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE user_roles (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
   user_id BIGINT NOT NULL,
   role_name VARCHAR(30) NOT NULL,
-  PRIMARY KEY(user_id, role_name),
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (role_name) REFERENCES roles(role_name)
+  UNIQUE KEY `uk_user_roles_user_id_role_name` (user_id, role_name),
+  CONSTRAINT `fk_user_roles_user_id` FOREIGN KEY (user_id) REFERENCES users(id),
+  CONSTRAINT `fk_user_roles_role_name` FOREIGN KEY (role_name) REFERENCES roles(role_name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS refresh_tokens (
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    user_id BIGINT NOT NULL UNIQUE COMMENT '사용자 ID',
-	token VARCHAR(50) NOT NULL COMMENT '리프레시 토근 값',
-	expiry DATETIME(6) NOT NULL COMMENT '만료 시간',
+    user_id BIGINT NOT NULL UNIQUE,
+	token VARCHAR(50) NOT NULL,
+	expiry DATETIME(6) NOT NULL,
     
     created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
     updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
@@ -68,9 +69,9 @@ CREATE TABLE trucks (
   status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE', -- ACTIVE/INACTIVE
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  CONSTRAINT fk_trucks_owner_id FOREIGN KEY (owner_id) REFERENCES users(id),
-  CONSTRAINT chk_trucks_status CHECK (status IN ('ACTIVE','INACTIVE')),
-  UNIQUE KEY uk_trucks_owner_name (owner_id, name)
+  CONSTRAINT `fk_trucks_owner_id` FOREIGN KEY (owner_id) REFERENCES users(id),
+  CONSTRAINT `chk_trucks_status` CHECK (status IN ('ACTIVE','INACTIVE')),
+  UNIQUE KEY `uk_trucks_owner_name` (owner_id, name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE locations (
@@ -80,7 +81,7 @@ CREATE TABLE locations (
   latitude DECIMAL(10,7) NOT NULL,
   longitude DECIMAL(10,7) NOT NULL,
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  INDEX idx_locations_geo (latitude, longitude)
+  INDEX `idx_locations_geo` (latitude, longitude)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE truck_schedules (
@@ -93,11 +94,11 @@ CREATE TABLE truck_schedules (
   max_reservations INT NOT NULL DEFAULT 100,     -- 사전예약 상한
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  FOREIGN KEY (truck_id) REFERENCES trucks(id),
-  FOREIGN KEY (location_id) REFERENCES locations(id),
-  CONSTRAINT chk_schedule_status CHECK (status IN ('PLANNED','OPEN','CLOSED','CANCELED')),
-  INDEX idx_schedule_time (start_time, end_time),
-  INDEX idx_schedule_truck (truck_id, status)
+  CONSTRAINT `fk_truck_schedules_turck_id` FOREIGN KEY (truck_id) REFERENCES trucks(id),
+  CONSTRAINT `fk_truck_schedules_location_id` FOREIGN KEY (location_id) REFERENCES locations(id),
+  CONSTRAINT `chk_schedule_status` CHECK (status IN ('PLANNED','OPEN','CLOSED','CANCELED')),
+  INDEX `idx_schedule_time` (start_time, end_time),
+  INDEX `idx_schedule_truck` (truck_id, status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 3) 메뉴/예약
@@ -110,9 +111,9 @@ CREATE TABLE menu_items (
   option_text VARCHAR(255) NULL,              -- 간단 옵션 설명(세부 옵션 테이블은 생략)
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  FOREIGN KEY (truck_id) REFERENCES trucks(id),
-  UNIQUE KEY uk_menu_truck_name (truck_id, name),
-  INDEX idx_menu_truck (truck_id, is_sold_out)
+  FOREIGN KEY `fk_truck_menu_menu_item`(truck_id) REFERENCES trucks(id),
+  UNIQUE KEY `uk_menu_item_truck_name` (truck_id, name),
+  INDEX `idx_menu_truck` (truck_id, is_sold_out)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE reservations (
@@ -125,11 +126,11 @@ CREATE TABLE reservations (
   note VARCHAR(255) NULL,
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  FOREIGN KEY (schedule_id) REFERENCES truck_schedules(id),
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  CONSTRAINT chk_resv_status CHECK (status IN ('PENDING','CONFIRMED','CANCELED','NO_SHOW','REFUNDED')),
-  INDEX idx_resv_user_time (user_id, pickup_time),
-  INDEX idx_resv_schedule (schedule_id, status)
+  FOREIGN KEY `fk_resv_schedule`(schedule_id) REFERENCES truck_schedules(id),
+  FOREIGN KEY `fk_resv_user`(user_id) REFERENCES users(id),
+  CONSTRAINT `chk_resv_status` CHECK (status IN ('PENDING','CONFIRMED','CANCELED','NO_SHOW','REFUNDED')),
+  INDEX `idx_resv_user_time` (user_id, pickup_time),
+  INDEX `idx_resv_schedule` (schedule_id, status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 4) 주문(현장/사전 공용) + 품목

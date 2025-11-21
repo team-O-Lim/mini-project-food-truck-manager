@@ -1,0 +1,56 @@
+package org.example.foodtruckback.entity.reservation;
+
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.example.foodtruckback.common.enums.ReservationStatus;
+import org.example.foodtruckback.entity.User;
+import org.example.foodtruckback.entity.truck.Schedule;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(
+        name = "reservations",
+        indexes = {
+                @Index(name = "idx_resv_user_time", columnList = "start_time, end_time"),
+                @Index(name = "idx_resv_schedule", columnList = "truck_id, status"),
+        }
+)
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Reservation {
+        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "schedule_id", nullable = false,
+                foreignKey = @ForeignKey(name = "fk_resv_schedule"))
+        private Schedule scheduleId;
+
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "user_id", nullable = false,
+                foreignKey = @ForeignKey(name = "fk_resv_user"))
+        private User user;
+
+        @Column(nullable = false)
+        private LocalDateTime pickupTime;
+
+        @Column(nullable = false, precision = 10, scale = 2)
+        private BigDecimal totalAmount;
+
+        @Enumerated(EnumType.STRING)
+        @Column(nullable = false, length = 20)
+        private ReservationStatus status = ReservationStatus.PENDING;
+
+        @Column(length = 255)
+        private String note;
+
+        @Column(nullable = false, updatable = false)
+        private LocalDateTime createdAt;
+
+        @Column(nullable = false)
+        private LocalDateTime updatedAt;
+}
