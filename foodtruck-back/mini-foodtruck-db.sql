@@ -106,7 +106,7 @@ CREATE TABLE menu_items (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   truck_id BIGINT NOT NULL,
   name VARCHAR(100) NOT NULL,
-  price DECIMAL(10,2) NOT NULL,
+  price INT NOT NULL,
   is_sold_out BOOLEAN NOT NULL DEFAULT FALSE,
   option_text VARCHAR(255) NULL,              -- 간단 옵션 설명(세부 옵션 테이블은 생략)
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
@@ -121,7 +121,7 @@ CREATE TABLE reservations (
   schedule_id BIGINT NOT NULL,
   user_id BIGINT NOT NULL,
   pickup_time DATETIME(6) NOT NULL,
-  total_amount DECIMAL(10,2) NOT NULL,
+  total_amount INT NOT NULL,
   status VARCHAR(20) NOT NULL DEFAULT 'PENDING', -- PENDING/CONFIRMED/CANCELED/NO_SHOW/REFUNDED
   note VARCHAR(255) NULL,
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),

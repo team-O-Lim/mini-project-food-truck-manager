@@ -3,6 +3,7 @@ package org.example.foodtruckback.entity.order;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.foodtruckback.entity.truck.MenuItem;
 
 @Entity
 @Table(
@@ -28,5 +29,5 @@ public class OrderItem {
     private int qty;
 
     @Column(name = "unit_price", nullable = false)
-    private int Price;
+    private int price;
 }

@@ -6,9 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.foodtruckback.common.enums.OrderSource;
 import org.example.foodtruckback.common.enums.OrderStatus;
-import org.example.foodtruckback.entity.User;
+import org.example.foodtruckback.entity.user.User;
 import org.example.foodtruckback.entity.base.BaseTimeEntity;
-
+import org.example.foodtruckback.entity.reservation.Reservation;
+import org.example.foodtruckback.entity.truck.Schedule;
 import java.time.LocalDateTime;
 
 @Entity
@@ -35,7 +36,7 @@ public class Order extends BaseTimeEntity {
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_order_user"))
     private User user;
 
-    @Column(name = "source", nullable = false)
+    @Column(name = "source", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     private OrderSource source = OrderSource.ONSITE;
 
@@ -46,10 +47,10 @@ public class Order extends BaseTimeEntity {
     @Column(name = "amount", nullable = false)
     private int amount;
 
-    @Column(name = "currency", nullable = false)
+    @Column(name = "currency", nullable = false, columnDefinition = "CHAR(3)")
     private String currency = "KRW";
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     private OrderStatus status = OrderStatus.PENDING;
 
