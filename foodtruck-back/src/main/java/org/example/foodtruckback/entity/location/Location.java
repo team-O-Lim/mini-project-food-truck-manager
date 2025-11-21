@@ -17,8 +17,11 @@ public class Location {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 120)
     private String name;
+
+    @Column(name = "address", length = 255)
+    private String address;
 
     @Column(name = "latitude", nullable = false)
     private BigDecimal latitude;
