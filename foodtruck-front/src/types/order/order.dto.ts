@@ -1,15 +1,15 @@
-import type { CreateOrderItem, OrderItem, OrderSource, OrderStatus } from "./order.type";
+import type { CreateOrderItem, OrderItem, OrderSource, OrderStatus, UpdateOrderItem } from "./order.type";
 
 export interface OrderCreateRequest {
   scheduleId: number;
-  userId: number | null
+  userId?: number | null
   source: OrderSource;
-  reservationId: number | null;
+  reservationId?: number | null;
   items: CreateOrderItem[];
 }
 
 export interface OrderUpdateRequest {
-  items: CreateOrderItem[];
+  items: UpdateOrderItem[];
 }
 
 export interface OrderDetailResponse {
