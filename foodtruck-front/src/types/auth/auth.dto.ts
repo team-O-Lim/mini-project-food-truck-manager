@@ -1,3 +1,5 @@
+import type { RoleType } from "../role/role.type";
+
 export interface SignupRequest {
   name: string;
   loginId: string;
@@ -19,9 +21,32 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  loginId: string;
-  password: string;
+  tokenType: string,
+  accessToken: string,
+  expiresAt: number,
+  userNmae: string,
+  roles : RoleType[]
 }
+
+export interface FindIdRequest {
+  email: string
+}
+
+export interface FindIdResponse {
+  LoginId: string;
+}
+
+export interface ResetPWRequest {
+  loginId: string,
+  message: string,
+  password: string,
+  confirmPasswrod: string
+}
+
+export interface ResetPWResponse {
+  loginId: string,
+}
+
 
 export interface RefreshRequest {}
 

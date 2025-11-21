@@ -1,9 +1,13 @@
 import { privateApi, publicApi } from "../common/axiosInstance";
 import type {
+  FindIdRequest,
+  FindIdResponse,
   LoginRequest,
   LoginResponse,
   RefreshRequest,
   RefreshResponse,
+  ResetPWRequest,
+  ResetPWResponse,
   SignupRequest,
   SignupResponse,
 } from "@/types/auth/auth.dto";
@@ -37,6 +41,24 @@ export const authApi = {
 
     return res.data.data;
   },
+
+  // 아이디 찾기
+  findId: async (req: FindIdRequest): Promise<FindIdResponse> => {
+    const res = await publicApi.post<ApiResponse<FindIdResponse>>(
+      AUTH_PATH.FINDID, req
+    );
+
+    return res.data.data
+  },
+
+  resetPW: async (req: ResetPWRequest): Promise<ResetPWResponse> => {
+    const res = await publicApi.post<ApiResponse<ResetPWResponse>> (
+      AUTH_PATH.RESETPW, req
+    );
+
+    return res.data.data;
+  },
+  
 
   // 리프레시
   refresh: async (req: RefreshRequest): Promise<RefreshResponse> => {
