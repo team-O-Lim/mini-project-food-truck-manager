@@ -8,5 +8,7 @@ export const AUTH_PATH = {
   SIGNUP: `${AUTH_PREFIX}/signup`,
   LOGIN: `${AUTH_PREFIX}/login`,
   LOGOUT: `${AUTH_PREFIX}/logout`,
-  REFRESH: `${AUTH_PREFIX}/refresh`
+  REFRESH: `${AUTH_PREFIX}/refresh`,
+  FINDID: `${AUTH_PREFIX}/find-id`,
+  RESETPW: `${AUTH_PREFIX}/reset-pw`
 }

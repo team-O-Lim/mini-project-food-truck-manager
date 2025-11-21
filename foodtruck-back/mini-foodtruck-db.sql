@@ -1,5 +1,5 @@
 
-DROP DATABASE IF EXISTS `mini-food-truck-db`;
+DROP DATABASE IF EXISTS `mini-foodtruck-db`;
 CREATE DATABASE IF NOT EXISTS `mini-foodtruck-db`
   CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `mini-foodtruck-db`;
@@ -29,8 +29,8 @@ CREATE TABLE users (
   phone VARCHAR(30) NULL,
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  CONSTRAINT uk_users_login UNIQUE(login_id),
-  CONSTRAINT uk_users_email UNIQUE(email)
+  CONSTRAINT `uk_users_login_id` UNIQUE(login_id),
+  CONSTRAINT `uk_users_email` UNIQUE(email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE roles (
@@ -38,18 +38,19 @@ CREATE TABLE roles (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE user_roles (
+  id BIGINT PRIMARY KEY AUTO_INCREMENT,
   user_id BIGINT NOT NULL,
   role_name VARCHAR(30) NOT NULL,
-  PRIMARY KEY(user_id, role_name),
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (role_name) REFERENCES roles(role_name)
+  UNIQUE KEY `uk_user_roles_user_id_role_name` (user_id, role_name),
+  CONSTRAINT `fk_user_roles_user_id` FOREIGN KEY (user_id) REFERENCES users(id),
+  CONSTRAINT `fk_user_roles_role_name` FOREIGN KEY (role_name) REFERENCES roles(role_name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS refresh_tokens (
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    user_id BIGINT NOT NULL UNIQUE COMMENT '사용자 ID',
-	token VARCHAR(50) NOT NULL COMMENT '리프레시 토근 값',
-	expiry DATETIME(6) NOT NULL COMMENT '만료 시간',
+    user_id BIGINT NOT NULL UNIQUE,
+	token VARCHAR(50) NOT NULL,
+	expiry DATETIME(6) NOT NULL,
     
     created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
     updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
@@ -80,7 +81,7 @@ CREATE TABLE locations (
   latitude DECIMAL(10,7) NOT NULL,
   longitude DECIMAL(10,7) NOT NULL,
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
-  INDEX idx_locations_geo (latitude, longitude)
+  INDEX `idx_locations_geo` (latitude, longitude)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE truck_schedules (
@@ -93,8 +94,8 @@ CREATE TABLE truck_schedules (
   max_reservations INT NOT NULL DEFAULT 100,     -- 사전예약 상한
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  FOREIGN KEY `fk_trucks_schedule`(truck_id) REFERENCES trucks(id),
-  FOREIGN KEY `fk_trucks_location`(location_id) REFERENCES locations(id),
+  CONSTRAINT `fk_truck_schedules_turck_id` FOREIGN KEY (truck_id) REFERENCES trucks(id),
+  CONSTRAINT `fk_truck_schedules_location_id` FOREIGN KEY (location_id) REFERENCES locations(id),
   CONSTRAINT `chk_schedule_status` CHECK (status IN ('PLANNED','OPEN','CLOSED','CANCELED')),
   INDEX `idx_schedule_time` (start_time, end_time),
   INDEX `idx_schedule_truck` (truck_id, status)
@@ -148,10 +149,10 @@ CREATE TABLE orders (
   FOREIGN KEY (schedule_id) REFERENCES truck_schedules(id),
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (reservation_id) REFERENCES reservations(id) ON DELETE SET NULL,
-  CONSTRAINT chk_order_status CHECK (status IN ('PAID','PENDING','FAILED','REFUNDED')),
-  CONSTRAINT chk_order_source CHECK (source IN ('ONSITE','RESERVATION')),
-  INDEX idx_orders_schedule (schedule_id, status),
-  INDEX idx_orders_user (user_id, paid_at)
+  CONSTRAINT `chk_order_status` CHECK (status IN ('PAID','PENDING','FAILED','REFUNDED')),
+  CONSTRAINT `chk_order_source` CHECK (source IN ('ONSITE','RESERVATION')),
+  INDEX `idx_orders_schedule` (schedule_id, status),
+  INDEX `idx_orders_user` (user_id, paid_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE order_items (
@@ -162,7 +163,7 @@ CREATE TABLE order_items (
   unit_price DECIMAL(10,2) NOT NULL,
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
   FOREIGN KEY (menu_item_id) REFERENCES menu_items(id),
-  INDEX idx_order_items_order (order_id)
+  INDEX `idx_order_items_order` (order_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 테스트----------------------------------------------- 
