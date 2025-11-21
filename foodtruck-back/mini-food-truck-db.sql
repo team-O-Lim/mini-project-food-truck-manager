@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS menu_items;
 DROP TABLE IF EXISTS truck_schedules;
 DROP TABLE IF EXISTS locations;
 DROP TABLE IF EXISTS trucks;
+DROP TABLE IF EXISTS refresh_tokens;
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS users;
@@ -42,6 +43,20 @@ CREATE TABLE user_roles (
   PRIMARY KEY(user_id, role_name),
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (role_name) REFERENCES roles(role_name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS refresh_tokens (
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT NOT NULL UNIQUE COMMENT '사용자 ID',
+	token VARCHAR(50) NOT NULL COMMENT '리프레시 토근 값',
+	expiry DATETIME(6) NOT NULL COMMENT '만료 시간',
+    
+    created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+    updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+    
+    INDEX `idx_refresh_tokens_user_id` (user_id),
+    
+    CONSTRAINT `fk_refresh_token_user` FOREIGN KEY (user_id) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 2) 트럭/위치/스케줄
