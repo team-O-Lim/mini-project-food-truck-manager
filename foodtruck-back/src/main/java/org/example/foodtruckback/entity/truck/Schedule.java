@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.foodtruckback.common.enums.ScheduleStatus;
+import org.example.foodtruckback.entity.base.BaseTimeEntity;
 
 import java.time.LocalDateTime;
 
@@ -18,18 +19,18 @@ import java.time.LocalDateTime;
 )
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Schedule {
+public class Schedule extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "truck_id", nullable = false,
-            foreignKey = @ForeignKey(name = "fk_trucks_schedule"))
+            foreignKey = @ForeignKey(name = "fk_truck_schedules_turck_id"))
     private Truck truckId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false,
-            foreignKey = @ForeignKey(name = "fk_trucks_location"))
+            foreignKey = @ForeignKey(name = "fk_truck_schedules_location_id"))
     private Location locationId;
 
     @Column(name = "start_time", nullable = false)
@@ -44,10 +45,4 @@ public class Schedule {
 
     @Column(name = "max_reservations", nullable = false)
     private int maxReservations = 100;
-
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
 }

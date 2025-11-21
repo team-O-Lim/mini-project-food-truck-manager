@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.foodtruckback.entity.base.BaseTimeEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,7 +22,7 @@ import java.time.LocalDate;
 )
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MenuItem {
+public class MenuItem extends BaseTimeEntity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -41,10 +42,4 @@ public class MenuItem {
 
     @Column(length = 255)
     private String optionText;
-
-    @Column(nullable = false, updatable = false)
-    private LocalDate createdAt;
-
-    @Column(nullable = false)
-    private LocalDate updatedAt;
 }
