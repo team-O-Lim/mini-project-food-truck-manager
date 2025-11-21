@@ -9,7 +9,8 @@ export const ORDER_PATH = {
   LIST: ORDER_PREFIX,
 
   // 상세 조회 / 수정
-  BY_ID: (orderId: number) => `${ORDER_PREFIX}/${orderId}`,
+  ORDERBYID: (orderId: number) => `${ORDER_PREFIX}/${orderId}`,
+  UPDATE: (orderId: number) => `${ORDER_PREFIX}/${orderId}`,
 
   CANCEL: (orderId: number) => `${ORDER_PREFIX}/${orderId}/cancel`,
   REFUND: (orderId: number) => `${ORDER_PREFIX}/${orderId}/refund`,
