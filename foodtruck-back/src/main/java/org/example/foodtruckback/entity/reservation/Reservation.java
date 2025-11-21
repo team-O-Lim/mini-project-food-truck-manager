@@ -9,7 +9,6 @@ import org.example.foodtruckback.entity.base.BaseTimeEntity;
 import org.example.foodtruckback.entity.user.User;
 import org.example.foodtruckback.entity.truck.Schedule;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity

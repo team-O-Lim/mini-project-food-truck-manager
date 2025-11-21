@@ -6,9 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.foodtruckback.entity.base.BaseTimeEntity;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 @Entity
 @Table(
         name = "menu_items",

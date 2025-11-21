@@ -8,8 +8,6 @@ import org.example.foodtruckback.common.enums.TurckStatus;
 import org.example.foodtruckback.entity.user.User;
 import org.example.foodtruckback.entity.base.BaseTimeEntity;
 
-import java.time.LocalDate;
-
 @Entity
 @Table(
         name = "trucks",
