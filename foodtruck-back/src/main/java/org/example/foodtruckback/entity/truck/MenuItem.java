@@ -26,7 +26,7 @@ public class MenuItem extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "truck_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_truck_menu_menu_item"))
-    private Truck truckId;
+    private Truck truck;
 
     @Column(nullable = false, length = 100)
     private String name;

@@ -17,7 +17,7 @@ public record ReservationCreateRequestDto(
         LocalDateTime pickupTime,
 
         @NotNull(message = "구매 금액을 확인하세요.")
-        BigDecimal totalAmount,
+        int totalAmount,
 
         @Size(max = 255)
         String note

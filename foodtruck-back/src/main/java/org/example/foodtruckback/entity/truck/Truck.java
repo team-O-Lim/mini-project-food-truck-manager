@@ -25,7 +25,7 @@ public class Truck extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_trucks_owner_id"))
-    private User ownerId;
+    private User owner;
 
     @Column(nullable = false, length = 100)
     private String name;
