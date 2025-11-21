@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.foodtruckback.common.enums.TurckStatus;
-import org.example.foodtruckback.entity.User;
+import org.example.foodtruckback.entity.user.User;
 import org.example.foodtruckback.entity.base.BaseTimeEntity;
 
 import java.time.LocalDate;
@@ -38,10 +38,4 @@ public class Truck extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
     private TurckStatus status = TurckStatus.ACTIVE;
-
-    @Column(nullable = false, updatable = false)
-    private LocalDate createdAt;
-
-    @Column(nullable = false)
-    private LocalDate updatedAt;
 }
