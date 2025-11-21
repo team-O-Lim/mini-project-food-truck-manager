@@ -106,13 +106,13 @@ CREATE TABLE menu_items (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   truck_id BIGINT NOT NULL,
   name VARCHAR(100) NOT NULL,
-  price DECIMAL(10,2) NOT NULL,
+  price INT NOT NULL,
   is_sold_out BOOLEAN NOT NULL DEFAULT FALSE,
   option_text VARCHAR(255) NULL,              -- 간단 옵션 설명(세부 옵션 테이블은 생략)
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  FOREIGN KEY (truck_id) REFERENCES trucks(id),
-  UNIQUE KEY `uk_menu_truck_name` (truck_id, name),
+  FOREIGN KEY `fk_truck_menu_menu_item`(truck_id) REFERENCES trucks(id),
+  UNIQUE KEY `uk_menu_item_truck_name` (truck_id, name),
   INDEX `idx_menu_truck` (truck_id, is_sold_out)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -121,16 +121,16 @@ CREATE TABLE reservations (
   schedule_id BIGINT NOT NULL,
   user_id BIGINT NOT NULL,
   pickup_time DATETIME(6) NOT NULL,
-  total_amount DECIMAL(10,2) NOT NULL,
+  total_amount INT NOT NULL,
   status VARCHAR(20) NOT NULL DEFAULT 'PENDING', -- PENDING/CONFIRMED/CANCELED/NO_SHOW/REFUNDED
   note VARCHAR(255) NULL,
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  FOREIGN KEY (schedule_id) REFERENCES truck_schedules(id),
-  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY `fk_resv_schedule`(schedule_id) REFERENCES truck_schedules(id),
+  FOREIGN KEY `fk_resv_user`(user_id) REFERENCES users(id),
   CONSTRAINT `chk_resv_status` CHECK (status IN ('PENDING','CONFIRMED','CANCELED','NO_SHOW','REFUNDED')),
   INDEX `idx_resv_user_time` (user_id, pickup_time),
-  INDEX `idx_resv_schedule (schedule_id, status)
+  INDEX `idx_resv_schedule` (schedule_id, status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 4) 주문(현장/사전 공용) + 품목
@@ -140,15 +140,15 @@ CREATE TABLE orders (
   user_id BIGINT NULL,                         -- 비회원 현장주문 가능 시 NULL 허용
   source VARCHAR(20) NOT NULL DEFAULT 'ONSITE',-- ONSITE/RESERVATION
   reservation_id BIGINT NULL,
-  amount DECIMAL(10,2) NOT NULL,
+  amount INT NOT NULL,
   currency CHAR(3) NOT NULL DEFAULT 'KRW',
-  status VARCHAR(20) NOT NULL DEFAULT 'PAID',  -- PAID/PENDING/FAILED/REFUNDED
+  status VARCHAR(20) NOT NULL DEFAULT 'PENDING',  -- PAID/PENDING/FAILED/REFUNDED
   paid_at DATETIME(6) NULL,
   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
   updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
-  FOREIGN KEY (schedule_id) REFERENCES truck_schedules(id),
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (reservation_id) REFERENCES reservations(id) ON DELETE SET NULL,
+  CONSTRAINT `fk_order_truck_schedule` FOREIGN KEY (schedule_id) REFERENCES truck_schedules(id),
+  CONSTRAINT `fk_order_user` FOREIGN KEY (user_id) REFERENCES users(id),
+  CONSTRAINT `fk_order_reservation` FOREIGN KEY (reservation_id) REFERENCES reservations(id) ON DELETE SET NULL,
   CONSTRAINT `chk_order_status` CHECK (status IN ('PAID','PENDING','FAILED','REFUNDED')),
   CONSTRAINT `chk_order_source` CHECK (source IN ('ONSITE','RESERVATION')),
   INDEX `idx_orders_schedule` (schedule_id, status),
@@ -160,10 +160,10 @@ CREATE TABLE order_items (
   order_id BIGINT NOT NULL,
   menu_item_id BIGINT NOT NULL,
   qty INT NOT NULL,
-  unit_price DECIMAL(10,2) NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
-  FOREIGN KEY (menu_item_id) REFERENCES menu_items(id),
-  INDEX idx_order_items_order (order_id)
+  unit_price INT NOT NULL,
+  CONSTRAINT `fk_order_item_order` FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+  CONSTRAINT `fk_order_item_menu_item` FOREIGN KEY (menu_item_id) REFERENCES menu_items(id),
+  INDEX `idx_order_items_order` (order_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 테스트----------------------------------------------- 
