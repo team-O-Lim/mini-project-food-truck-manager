@@ -6,6 +6,11 @@ export interface CreateOrderItem {
   qty: number;
 }
 
+export interface UpdateOrderItem {
+  menuItemId?: number;
+  qty?: number;
+}
+
 export interface OrderItem {
   menuItemId: number;
   qty: number;

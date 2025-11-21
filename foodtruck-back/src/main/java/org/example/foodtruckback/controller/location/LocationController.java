@@ -1,11 +1,11 @@
-package org.example.foodtruckback.controller.order;
+package org.example.foodtruckback.controller.location;
 
 import lombok.RequiredArgsConstructor;
 import org.example.foodtruckback.common.constants.ApiBase;
-import org.example.foodtruckback.common.constants.order.Order;
+import org.example.foodtruckback.common.constants.location.Location;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController(Order.ROOT)
+@RestController(Location.ROOT)
 @RequiredArgsConstructor
-public class OrderController {
+public class LocationController {
 }

@@ -1,4 +1,4 @@
-package org.example.foodtruckback.service.impl;
+package org.example.foodtruckback.service.order.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.example.foodtruckback.service.order.OrderService;
