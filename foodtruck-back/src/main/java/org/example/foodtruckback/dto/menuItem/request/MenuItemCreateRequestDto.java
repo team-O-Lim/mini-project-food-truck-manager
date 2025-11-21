@@ -8,9 +8,6 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 
 public record MenuItemCreateRequestDto(
-        @NotNull(message = "음식을 제작할 트럭을 지정해주세요.")
-        Long truckId,
-
         @NotBlank(message = "음식명을 작성해주세요.")
         String name,
 

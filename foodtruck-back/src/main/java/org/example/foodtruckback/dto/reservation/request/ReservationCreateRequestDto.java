@@ -10,9 +10,6 @@ public record ReservationCreateRequestDto(
         @NotNull(message = "선택한 트럭의 일정을 확인하세요.")
         Long scheduleId,
 
-        @NotNull(message = "예약자를 작성해주세요.")
-        Long userId,
-
         @NotNull(message = "픽업 예정 시간을 정해주세요.")
         LocalDateTime pickupTime,
 
