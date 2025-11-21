@@ -7,4 +7,5 @@ export const PAYMENT_PATH = {
   
   APPROVE: PAYMENT_PREFIX,
   CAPTURE: (orderId: number) => `${PAYMENT_PREFIX}/${orderId}/capture`
+  
 }
