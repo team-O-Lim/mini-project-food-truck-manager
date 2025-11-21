@@ -10,7 +10,7 @@ public record MenuItemUpdateRequestDto(
         String name,
 
         @DecimalMin("0.0")
-        BigDecimal price,
+        int price,
 
         @Size(max = 255)
         String optionText,

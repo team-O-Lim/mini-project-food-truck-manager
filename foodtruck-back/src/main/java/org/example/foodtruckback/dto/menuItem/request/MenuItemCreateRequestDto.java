@@ -16,7 +16,7 @@ public record MenuItemCreateRequestDto(
 
         @NotNull(message = "가격을 살정해주세요.")
         @DecimalMin("0.0")
-        BigDecimal price,
+        int price,
 
         @Size(max = 255)
         String optionText
