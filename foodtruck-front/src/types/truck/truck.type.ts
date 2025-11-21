@@ -1,3 +1,3 @@
-export interface TruckCreateForm {
-
-}
+export type TruckStatus =
+  | "ACTIVE" 
+  | "INACTIVE";

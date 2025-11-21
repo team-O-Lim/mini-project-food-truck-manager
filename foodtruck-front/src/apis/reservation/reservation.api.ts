@@ -1,36 +1,60 @@
 import { publicApi } from "../common/axiosInstance";
-import { TRUCK_PATH } from "./reservation.path";
+import { RESERVATION_PATH } from "./reservation.path";
+import type {
+  ReservationCreateRequest,
+  ReservationDetailResponse,
+  ReservationListResponse,
+} from "@/types/reservation/reservation.dto";
+import type { ApiResponse } from "@/types/common/ApiResponse";
 
-export const truckApi = {
-  getTruckList: async () => {
-    const res = await publicApi.get(TRUCK_PATH.LIST);
-    return res.data.data;
-  },
-
-  createTruck: async (payload: any) => {
-    const res = await publicApi.post(TRUCK_PATH.CREATE, payload);
-    return res.data.data;
-  },
-
-  getTruckById: async (truckId: number) => {
-    const res = await publicApi.get(TRUCK_PATH.BY_ID(truckId));
-    return res.data.data;
-  },
-
-  getTruckMenu: async (truckId: number) => {
-    const res = await publicApi.get(TRUCK_PATH.TRUCK_MENU(truckId));
-    return res.data.data;
-  },
-
-  getScheduleList: async (truckId: number) => {
-    const res = await publicApi.get(TRUCK_PATH.SCHEDULE_ROOT(truckId));
-    return res.data.data;
-  },
-
-  getScheduleById: async (truckId: number, scheduleId: number) => {
-    const res = await publicApi.get(
-      TRUCK_PATH.SCHEDULE_BY_ID(truckId, scheduleId)
+export const reservationApi = {
+  createReservation: async (body: ReservationCreateRequest): Promise<ReservationDetailResponse> => {
+    const res = await publicApi.post<ApiResponse<ReservationDetailResponse>>(
+      RESERVATION_PATH.ROOT,
+      body
     );
+
     return res.data.data;
   },
-}
+
+  getReservationList: async (): Promise<ReservationListResponse> => {
+    const res = await publicApi.get<ApiResponse<ReservationListResponse>>(
+      RESERVATION_PATH.ROOT
+    );
+
+    return res.data.data;
+  },
+
+  getReservationById: async (
+    reservationId: number): Promise<ReservationDetailResponse> => {
+    const res = await publicApi.get<ApiResponse<ReservationDetailResponse>>(
+      RESERVATION_PATH.BY_ID(reservationId)
+    );
+
+    return res.data.data;
+  },
+
+  cancelReservation: async (reservationId: number): Promise<ReservationDetailResponse> => {
+    const res = await publicApi.patch<ApiResponse<ReservationDetailResponse>>(
+      RESERVATION_PATH.CANCEL(reservationId)
+    );
+
+    return res.data.data;
+  },
+
+  confirmReservation: async (reservationId: number): Promise<ReservationDetailResponse> => {
+    const res = await publicApi.patch<ApiResponse<ReservationDetailResponse>>(
+      RESERVATION_PATH.CONFIRM(reservationId)
+    );
+
+    return res.data.data;
+  },
+
+  noShowReservation: async (reservationId: number): Promise<ReservationDetailResponse> => {
+    const res = await publicApi.patch<ApiResponse<ReservationDetailResponse>>(
+      RESERVATION_PATH.NO_SHOW(reservationId)
+    );
+    
+    return res.data.data;
+  },
+};

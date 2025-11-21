@@ -1,16 +1,13 @@
 import { BASE } from "../common/base.path";
 
-const TRUCK_FREFIX = `${BASE}/trucks`;
+const MENU_FREFIX = `${BASE}/menu`;
 
-export const TRUCK_PATH = {
-  ROOT: TRUCK_FREFIX,
+export const MENU_PATH = {
+  ROOT: MENU_FREFIX,
 
-  LIST: TRUCK_FREFIX,
-  CREATE: TRUCK_FREFIX,
-
-  BY_ID: (truckId: number) => `${TRUCK_FREFIX}/${truckId}`,
+  BY_ID: (menuId: number) => `${MENU_FREFIX}/${menuId}`,
+  UPDATE: (menuId: number) => `${MENU_FREFIX}/${menuId}`,
+  DELETE: (menuId: number) => `${MENU_FREFIX}/${menuId}`,
   
-  TRUCK_MENU: (truckId: number) => `${TRUCK_FREFIX}/${truckId}/menu`,
-  SCHEDULE_ROOT: (truckId: number) => `${TRUCK_FREFIX}/${truckId}/schedules`,
-  SCHEDULE_BY_ID: (truckId: number, scheduleId: number) =>`${TRUCK_FREFIX}/${truckId}/schedules/${scheduleId}`,
+  SOLD_OUT: (menuId: number) => `${MENU_FREFIX}/${menuId}/soldout`
 }

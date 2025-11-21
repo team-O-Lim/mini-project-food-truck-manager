@@ -1,36 +1,51 @@
 import { publicApi } from "../common/axiosInstance";
-import { TRUCK_PATH } from "./menu.path";
+import { MENU_PATH } from "./menu.path";
+import type { ApiResponse } from "@/types/common/ApiResponse";
 
-export const truckApi = {
-  getTruckList: async () => {
-    const res = await publicApi.get(TRUCK_PATH.LIST);
-    return res.data.data;
-  },
+import type {
+  MenuCreateRequest,
+  MenuUpdateRequest,
+  MenuDetailResponse,
+  MenuListResponse,
+} from "@/types/menu/menu.dto";
 
-  createTruck: async (payload: any) => {
-    const res = await publicApi.post(TRUCK_PATH.CREATE, payload);
-    return res.data.data;
-  },
-
-  getTruckById: async (truckId: number) => {
-    const res = await publicApi.get(TRUCK_PATH.BY_ID(truckId));
-    return res.data.data;
-  },
-
-  getTruckMenu: async (truckId: number) => {
-    const res = await publicApi.get(TRUCK_PATH.TRUCK_MENU(truckId));
-    return res.data.data;
-  },
-
-  getScheduleList: async (truckId: number) => {
-    const res = await publicApi.get(TRUCK_PATH.SCHEDULE_ROOT(truckId));
-    return res.data.data;
-  },
-
-  getScheduleById: async (truckId: number, scheduleId: number) => {
-    const res = await publicApi.get(
-      TRUCK_PATH.SCHEDULE_BY_ID(truckId, scheduleId)
+export const menuApi = {
+  createMenu: async (
+    body: MenuCreateRequest): Promise<MenuDetailResponse> => {
+    const res = await publicApi.post<ApiResponse<MenuDetailResponse>>(
+      MENU_PATH.ROOT,
+      body
     );
+
     return res.data.data;
   },
-}
+
+  getMenuById: async (menuId: number): Promise<MenuDetailResponse> => {
+    const res = await publicApi.get<ApiResponse<MenuDetailResponse>>(
+      MENU_PATH.BY_ID(menuId)
+    );
+    
+    return res.data.data;
+  },
+
+  updateMenu: async (menuId: number, body: MenuUpdateRequest): Promise<MenuDetailResponse> => {
+    const res = await publicApi.patch<ApiResponse<MenuDetailResponse>>(
+      MENU_PATH.UPDATE(menuId),
+      body
+    );
+
+    return res.data.data;
+  },
+
+  deleteMenu: async (menuId: number): Promise<void> => {
+    await publicApi.delete<ApiResponse<void>>(MENU_PATH.DELETE(menuId));
+  },
+
+  toggleSoldOut: async (menuId: number): Promise<MenuDetailResponse> => {
+    const res = await publicApi.patch<ApiResponse<MenuDetailResponse>>(
+      MENU_PATH.SOLD_OUT(menuId)
+    );
+
+    return res.data.data;
+  },
+};
