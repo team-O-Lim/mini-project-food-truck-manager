@@ -1,0 +1,13 @@
+export type OrderSource = "ONSITE" | "RESERVATION";
+export type OrderStatus = "PAID" | "PENDING" | "FAILED" | "REFUNDED";
+
+export interface CreateOrderItem {
+  menuItemId: number;
+  qty: number;
+}
+
+export interface OrderItem {
+  menuItemId: number;
+  qty: number;
+  unitPrice: number;
+}
