@@ -1,6 +1,7 @@
 package org.example.foodtruckback.dto.menuItem.request;
 
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
@@ -15,5 +16,6 @@ public record MenuItemUpdateRequestDto(
         @Size(max = 255)
         String optionText,
 
+        @NotNull(message = "매진상태를 설정해주세요.")
         Boolean isSoldOut
 ){}

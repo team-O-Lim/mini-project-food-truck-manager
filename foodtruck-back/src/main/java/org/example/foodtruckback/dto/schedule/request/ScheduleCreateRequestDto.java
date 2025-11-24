@@ -15,7 +15,7 @@ public record ScheduleCreateRequestDto(
 
         @NotNull(message = "지역을 지정해주세요.")
         Long locationId,
-        
+
         @Min(1) @Max(100)
         int maxReservations
 ){}
