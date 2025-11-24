@@ -6,9 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.foodtruckback.entity.base.BaseTimeEntity;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 @Entity
 @Table(
         name = "menu_items",
@@ -29,7 +26,7 @@ public class MenuItem extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "truck_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_truck_menu_menu_item"))
-    private Truck truckId;
+    private Truck truck;
 
     @Column(nullable = false, length = 100)
     private String name;

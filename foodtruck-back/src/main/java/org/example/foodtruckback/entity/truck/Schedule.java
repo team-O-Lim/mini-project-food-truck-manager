@@ -26,13 +26,13 @@ public class Schedule extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "truck_id", nullable = false,
-            foreignKey = @ForeignKey(name = "fk_trucks_schedule"))
-    private Truck truckId;
+            foreignKey = @ForeignKey(name = "fk_truck_schedules_turck_id"))
+    private Truck truck;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false,
-            foreignKey = @ForeignKey(name = "fk_trucks_location"))
-    private Location locationId;
+            foreignKey = @ForeignKey(name = "fk_truck_schedules_location_id"))
+    private Location location;
 
     @Column(name = "start_time", nullable = false)
     private LocalDateTime startTime;

@@ -1,18 +1,29 @@
 package org.example.foodtruckback.dto.menuItem.response;
 
-import org.example.foodtruckback.common.enums.ReservationStatus;
+import org.example.foodtruckback.entity.truck.MenuItem;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record MenuItemDetailResponseDto(
         Long id,
-        Long scheduleId,
-        Long userId,
-        LocalDateTime pickupTime,
-        BigDecimal totalAmount,
-        ReservationStatus status,
-        String note,
+        Long truckId,
+        String name,
+        int price,
+        boolean isSoldOut,
+        String optionText,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
-){}
+){
+    public static MenuItemDetailResponseDto from(MenuItem menuItem){
+        return new MenuItemDetailResponseDto(
+                menuItem.getId(),
+                menuItem.getTruck().getId(),
+                menuItem.getName(),
+                menuItem.getPrice(),
+                menuItem.isSoldOut(),
+                menuItem.getOptionText(),
+                menuItem.getCreatedAt(),
+                menuItem.getUpdatedAt()
+        );
+    }
+}

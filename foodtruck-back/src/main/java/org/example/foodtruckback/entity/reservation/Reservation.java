@@ -9,7 +9,6 @@ import org.example.foodtruckback.entity.base.BaseTimeEntity;
 import org.example.foodtruckback.entity.user.User;
 import org.example.foodtruckback.entity.truck.Schedule;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -29,7 +28,7 @@ public class Reservation extends BaseTimeEntity {
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "schedule_id", nullable = false,
                 foreignKey = @ForeignKey(name = "fk_resv_schedule"))
-        private Schedule scheduleId;
+        private Schedule schedule;
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "user_id", nullable = false,
