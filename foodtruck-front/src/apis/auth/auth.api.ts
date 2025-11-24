@@ -4,10 +4,10 @@ import type {
   FindIdResponse,
   LoginRequest,
   LoginResponse,
+  LogoutRequest,
+  PasswordResetRequest,
   RefreshRequest,
-  RefreshResponse,
-  ResetPWRequest,
-  ResetPWResponse,
+  ResetVerifyResponse,
   SignupRequest,
   SignupResponse,
 } from "@/types/auth/auth.dto";
@@ -34,9 +34,9 @@ export const authApi = {
   },
 
   // 로그아웃
-  logout: async (): Promise<void> => {
+  logout: async (req: LogoutRequest): Promise<void> => {
     const res = await privateApi.post<ApiResponse<void>>(
-      AUTH_PATH.LOGOUT
+      AUTH_PATH.LOGOUT, req
     );
 
     return res.data.data;
@@ -51,8 +51,8 @@ export const authApi = {
     return res.data.data
   },
 
-  resetPW: async (req: ResetPWRequest): Promise<ResetPWResponse> => {
-    const res = await publicApi.post<ApiResponse<ResetPWResponse>> (
+  resetPW: async (req: PasswordResetRequest): Promise<ResetVerifyResponse> => {
+    const res = await publicApi.post<ApiResponse<ResetVerifyResponse>> (
       AUTH_PATH.RESETPW, req
     );
 
@@ -61,8 +61,8 @@ export const authApi = {
   
 
   // 리프레시
-  refresh: async (req: RefreshRequest): Promise<RefreshResponse> => {
-    const res = await publicApi.post<ApiResponse<RefreshResponse>>(
+  refresh: async (req: RefreshRequest): Promise<void> => {
+    const res = await publicApi.post<ApiResponse<void>>(
       AUTH_PATH.REFRESH, req
     );
     
