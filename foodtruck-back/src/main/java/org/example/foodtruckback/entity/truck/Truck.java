@@ -8,8 +8,6 @@ import org.example.foodtruckback.common.enums.TurckStatus;
 import org.example.foodtruckback.entity.user.User;
 import org.example.foodtruckback.entity.base.BaseTimeEntity;
 
-import java.time.LocalDate;
-
 @Entity
 @Table(
         name = "trucks",
@@ -27,7 +25,7 @@ public class Truck extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_trucks_owner_id"))
-    private User ownerId;
+    private User owner;
 
     @Column(nullable = false, length = 100)
     private String name;
