@@ -30,7 +30,13 @@ public enum ErrorCode {
     // User (Uxxx)
     // ===========================
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "U001", "사용자를 찾을 수 없습니다.", "User not found"),
-    DUPLICATE_USER(HttpStatus.CONFLICT, "U002", "이미 존재하는 사용자입니다.", "Duplicate user");
+    DUPLICATE_USER(HttpStatus.CONFLICT, "U002", "이미 존재하는 사용자입니다.", "Duplicate user"),
+
+    // ===========================
+    // location (Lxxx)
+    // ===========================
+    DUPLICATE_LOCATION(HttpStatus.CONFLICT, "L001", "이미 존재하는 스팟입니다.", "Duplicate location"),
+    LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, "L002", "스팟을 찾을 수 없습니다.", "Location not found");
 
     private final HttpStatus status;
     private final String code;
