@@ -2,8 +2,8 @@ package org.example.foodtruckback.common.constants.auth;
 
 import org.example.foodtruckback.common.constants.ApiBase;
 
-public class Auth {
-    private Auth() {}
+public class AuthApi {
+    private AuthApi() {}
 
     public static final String ROOT = ApiBase.BASE + "/auths";
 

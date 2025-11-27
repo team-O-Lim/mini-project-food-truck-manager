@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.foodtruckback.common.constants.auth.Auth;
+import org.example.foodtruckback.common.constants.auth.AuthApi;
 import org.example.foodtruckback.dto.ResponseDto;
 import org.example.foodtruckback.dto.auth.request.FindIdRequestDto;
 import org.example.foodtruckback.dto.auth.request.LoginRequestDto;
@@ -18,13 +18,13 @@ import org.example.foodtruckback.service.auth.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController(Auth.ROOT)
+@RestController(AuthApi.ROOT)
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
 
     //회원 가입
-    @PostMapping(Auth.SIGNUP)
+    @PostMapping(AuthApi.SIGNUP)
     public ResponseEntity<ResponseDto<SignupResponseDto>> signup(
             @Valid @RequestBody SignupRequestDto request,
             HttpServletResponse response
@@ -35,7 +35,7 @@ public class AuthController {
     }
 
     // 로그인
-    @PostMapping(Auth.LOGIN)
+    @PostMapping(AuthApi.LOGIN)
     public ResponseEntity<ResponseDto<LoginResponseDto>> login(
             @Valid @RequestBody LoginRequestDto request,
             HttpServletResponse response
@@ -46,7 +46,7 @@ public class AuthController {
     }
 
     // 로그아웃
-    @PostMapping(Auth.LOGOUT)
+    @PostMapping(AuthApi.LOGOUT)
     public ResponseEntity<ResponseDto<Void>> logout(
             HttpServletRequest request,
             HttpServletResponse response
@@ -57,7 +57,7 @@ public class AuthController {
     }
 
     // 아이디 찾기
-    @GetMapping(Auth.LOGINID_FIND)
+    @GetMapping(AuthApi.LOGINID_FIND)
     public ResponseEntity<ResponseDto<FindIdResponseDto>> findId(
             @Valid @RequestBody FindIdRequestDto request
     ) {
@@ -67,7 +67,7 @@ public class AuthController {
     }
 
     // 비밀번호 재설정
-    @PostMapping(Auth.PASSWORD_RESET)
+    @PostMapping(AuthApi.PASSWORD_RESET)
     public ResponseEntity<ResponseDto<Void>> resetPassword(
             @Valid @RequestBody PasswordResetRequest request
     ) {
@@ -76,7 +76,7 @@ public class AuthController {
     }
 
     // 토큰 재발급
-    @PostMapping(Auth.REFRESH)
+    @PostMapping(AuthApi.REFRESH)
     public ResponseEntity<ResponseDto<LoginResponseDto>> refresh(
             HttpServletRequest request,
             HttpServletResponse response
@@ -87,7 +87,7 @@ public class AuthController {
     }
 
     // 비밀번호 재설정 토큰
-    @GetMapping(Auth.PASSWORD_VERIFY)
+    @GetMapping(AuthApi.PASSWORD_VERIFY)
     public ResponseEntity<ResponseDto<PasswordVerifyResponseDto>> verifyPasswordToken(
             @RequestParam("token") String token
     ) {
