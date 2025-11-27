@@ -2,8 +2,7 @@ package org.example.foodtruckback.controller.location;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.foodtruckback.common.constants.ApiBase;
-import org.example.foodtruckback.common.constants.location.Location;
+import org.example.foodtruckback.common.constants.location.LocationApi;
 import org.example.foodtruckback.dto.ResponseDto;
 import org.example.foodtruckback.dto.location.request.LocationCreateRequestDto;
 import org.example.foodtruckback.dto.location.request.LocationUpdateRequestDto;
@@ -11,7 +10,6 @@ import org.example.foodtruckback.dto.location.response.LocationDetailResponseDto
 import org.example.foodtruckback.dto.location.response.LocationListItemResponseDto;
 import org.example.foodtruckback.security.user.UserPrincipal;
 import org.example.foodtruckback.service.location.LocationService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(Location.ROOT)
+@RequestMapping(LocationApi.ROOT)
 public class LocationController {
     private final LocationService locationService;
 
@@ -44,7 +42,7 @@ public class LocationController {
     }
 
     // get location (byId)
-    @GetMapping(Location.BY_ID)
+    @GetMapping(LocationApi.BY_ID)
     public ResponseEntity<ResponseDto<LocationDetailResponseDto>> getLocationById(
             @PathVariable Long locationId
     ) {
@@ -54,7 +52,7 @@ public class LocationController {
     }
 
     // update location
-    @PutMapping(Location.BY_ID)
+    @PutMapping(LocationApi.BY_ID)
     public ResponseEntity<ResponseDto<LocationDetailResponseDto>> updateLocation(
             @AuthenticationPrincipal UserPrincipal principal,
             @PathVariable Long locationId,
@@ -66,7 +64,7 @@ public class LocationController {
     }
 
     // delete location
-    @DeleteMapping(Location.BY_ID)
+    @DeleteMapping(LocationApi.BY_ID)
     public ResponseEntity<ResponseDto<Void>> deleteLocation(
             @AuthenticationPrincipal UserPrincipal principal,
             @PathVariable Long locationId

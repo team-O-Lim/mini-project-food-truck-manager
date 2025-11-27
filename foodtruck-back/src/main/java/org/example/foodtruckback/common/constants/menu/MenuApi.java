@@ -2,8 +2,8 @@ package org.example.foodtruckback.common.constants.menu;
 
 import org.example.foodtruckback.common.constants.ApiBase;
 
-public class Menu {
-    private Menu () {}
+public class MenuApi {
+    private MenuApi() {}
 
     public static final String ROOT = ApiBase.BASE + "/menu";
 
