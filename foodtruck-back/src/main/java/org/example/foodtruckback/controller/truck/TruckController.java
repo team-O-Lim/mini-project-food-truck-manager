@@ -37,6 +37,15 @@ public class TruckController {
         return ResponseEntity.ok(data);
     }
 
+    @GetMapping
+    public ResponseEntity<ResponseDto<List<TruckListItemResponseDto>>> getAllTrucks() {
+
+        ResponseDto<List<TruckListItemResponseDto>> data =
+                truckService.getAllTrucks();
+
+        return ResponseEntity.ok(data);
+    }
+
     @PutMapping(TruckApi.BY_ID)
     public ResponseEntity<ResponseDto<TruckDetailResponseDto>> updateTruck(
             @PathVariable Long truckId,
@@ -51,16 +60,6 @@ public class TruckController {
             @PathVariable Long truckId
     ) {
         ResponseDto<?> data = truckService.deleteTruck(truckId);
-        return ResponseEntity.ok(data);
-    }
-
-    // ⭐⭐ 트럭 전체 조회 (검색 / 리스트 출력)
-    @GetMapping
-    public ResponseEntity<ResponseDto<List<TruckListItemResponseDto>>> getAllTrucks() {
-
-        ResponseDto<List<TruckListItemResponseDto>> data =
-                truckService.getAllTrucks(); // 리스트 조회
-
         return ResponseEntity.ok(data);
     }
 }
