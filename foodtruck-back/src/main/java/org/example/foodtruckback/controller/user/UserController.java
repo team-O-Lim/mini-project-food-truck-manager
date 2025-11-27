@@ -1,0 +1,97 @@
+package org.example.foodtruckback.controller.user;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.example.foodtruckback.common.constants.user.User;
+import org.example.foodtruckback.common.enums.RoleType;
+import org.example.foodtruckback.dto.ResponseDto;
+import org.example.foodtruckback.dto.role.request.RoleAddRequestDto;
+import org.example.foodtruckback.dto.role.response.RoleAddResponseDto;
+import org.example.foodtruckback.dto.user.request.UserUpdateRequestDto;
+import org.example.foodtruckback.dto.user.response.UserDetaileResponseDto;
+import org.example.foodtruckback.dto.user.response.UserListResponseDto;
+import org.example.foodtruckback.security.user.UserPrincipal;
+import org.example.foodtruckback.service.user.UserService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController(User.ROOT)
+@RequiredArgsConstructor
+public class UserController {
+    private final UserService userService;
+
+    // 내 프로필 조회
+    @GetMapping(User.ME)
+    public ResponseEntity<ResponseDto<UserDetaileResponseDto>> getMyInfo(
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        ResponseDto<UserDetaileResponseDto> result = userService.getMyInfo(principal);
+
+        return ResponseEntity.ok().body(result);
+    }
+
+    // 내 프로필 수정
+    @PutMapping(User.ME)
+    public ResponseEntity<ResponseDto<UserDetaileResponseDto>> updateMyInfo(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @Valid @RequestBody UserUpdateRequestDto request
+    ) {
+        ResponseDto<UserDetaileResponseDto> response = userService.updateMyInfo(principal, request);
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 사용자 목록
+    @GetMapping
+    public ResponseEntity<ResponseDto<List<UserListResponseDto>>> getAllUsers() {
+        ResponseDto<List<UserListResponseDto>> response = userService.getAllUsers();
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 사용자 상세
+    @GetMapping(User.BY_ID)
+    public ResponseEntity<ResponseDto<UserDetaileResponseDto>> getByUserId(
+            @AuthenticationPrincipal UserPrincipal principal
+    ) {
+        ResponseDto<UserDetaileResponseDto> response = userService.getByUserId(principal);
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 사용자 수정
+    @PutMapping(User.BY_ID)
+    public ResponseEntity<ResponseDto<UserDetaileResponseDto>> updateByUserId(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @Valid @RequestBody UserUpdateRequestDto request
+    ) {
+        ResponseDto<UserDetaileResponseDto> response = userService.updateByUserId(principal, request);
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 권한 부여
+    @PostMapping(User.BY_ID)
+    public ResponseEntity<ResponseDto<RoleAddResponseDto>> addRoles(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @Valid @RequestBody RoleAddRequestDto request
+    ) {
+        ResponseDto<RoleAddResponseDto> response = userService.addRoles(principal, request);
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    // 권한 제거
+    @DeleteMapping(User.DELETE)
+    public ResponseEntity<ResponseDto<Void>> deleteRoles(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @Valid @RequestParam("Name") RoleType roleName
+            ) {
+        ResponseDto<Void> response = userService.deleteRoles(principal, roleName);
+
+        return ResponseEntity.ok().body(response);
+    }
+}

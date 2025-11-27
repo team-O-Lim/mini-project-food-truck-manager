@@ -6,7 +6,6 @@ import org.example.foodtruckback.entity.truck.Schedule;
 import java.time.LocalDateTime;
 
 public record ScheduleItemResponseDto(
-        Long id,
         LocalDateTime startTime,
         LocalDateTime endTime,
         Long locationId,
@@ -15,7 +14,6 @@ public record ScheduleItemResponseDto(
 ) {
     public static ScheduleItemResponseDto from(Schedule schedule) {
         return new ScheduleItemResponseDto(
-                schedule.getId(),
                 schedule.getStartTime(),
                 schedule.getEndTime(),
                 schedule.getLocation().getId(),
