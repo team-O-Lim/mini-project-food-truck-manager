@@ -18,7 +18,8 @@ import org.example.foodtruckback.service.auth.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController(AuthApi.ROOT)
+@RestController
+@RequestMapping(AuthApi.ROOT)
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;

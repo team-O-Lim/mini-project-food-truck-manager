@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseDto<UserDetaileResponseDto> getByUserId(UserPrincipal principal) {
+    public ResponseDto<UserDetaileResponseDto> getById(UserPrincipal principal) {
         return null;
     }
 
