@@ -27,10 +27,16 @@ public enum ErrorCode {
     PASSWORD_CONFIRM_MISMATCH(HttpStatus.BAD_REQUEST, "A006", "비밀번호와 비밀번호 확인이 일치하지 않습니다.", "Password mismatch"),
 
     // ===========================
-    // User (Uxxx)
+    // UserApi (Uxxx)
     // ===========================
-    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "U001", "사용자를 찾을 수 없습니다.", "User not found"),
-    DUPLICATE_USER(HttpStatus.CONFLICT, "U002", "이미 존재하는 사용자입니다.", "Duplicate user");
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "U001", "사용자를 찾을 수 없습니다.", "UserApi not found"),
+    DUPLICATE_USER(HttpStatus.CONFLICT, "U002", "이미 존재하는 사용자입니다.", "Duplicate user"),
+
+    // ===========================
+    // location (Lxxx)
+    // ===========================
+    DUPLICATE_LOCATION(HttpStatus.CONFLICT, "L001", "이미 존재하는 스팟입니다.", "Duplicate location"),
+    LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, "L002", "스팟을 찾을 수 없습니다.", "LocationApi not found");
 
     private final HttpStatus status;
     private final String code;
