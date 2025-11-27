@@ -2,6 +2,7 @@ package org.example.foodtruckback.controller.user;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.foodtruckback.common.constants.schedule.ScheduleApi;
 import org.example.foodtruckback.common.constants.user.UserApi;
 import org.example.foodtruckback.common.enums.RoleType;
 import org.example.foodtruckback.dto.ResponseDto;
@@ -18,7 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController(UserApi.ROOT)
+@RestController
+@RequestMapping(UserApi.ROOT)
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -54,10 +56,10 @@ public class UserController {
 
     // 사용자 상세
     @GetMapping(UserApi.BY_ID)
-    public ResponseEntity<ResponseDto<UserDetaileResponseDto>> getByUserId(
+    public ResponseEntity<ResponseDto<UserDetaileResponseDto>> getById(
             @AuthenticationPrincipal UserPrincipal principal
     ) {
-        ResponseDto<UserDetaileResponseDto> response = userService.getByUserId(principal);
+        ResponseDto<UserDetaileResponseDto> response = userService.getById(principal);
 
         return ResponseEntity.ok().body(response);
     }
