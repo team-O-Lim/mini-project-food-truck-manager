@@ -1,16 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import { GlobalStyle } from "./styles/Global";
+import MainRouter from "./router/MainRouter";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
-      푸드 트럭
+      <GlobalStyle />
+      <MainRouter />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
