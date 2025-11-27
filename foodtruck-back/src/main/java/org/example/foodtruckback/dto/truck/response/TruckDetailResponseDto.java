@@ -1,6 +1,7 @@
 package org.example.foodtruckback.dto.truck.response;
 
 import org.example.foodtruckback.common.enums.TurckStatus;
+import org.example.foodtruckback.dto.menuItem.response.MenuItemDetailResponseDto;
 import org.example.foodtruckback.dto.schedule.response.ScheduleItemResponseDto;
 import org.example.foodtruckback.entity.truck.Truck;
 
@@ -15,9 +16,12 @@ public record TruckDetailResponseDto(
         TurckStatus status,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
-        List<ScheduleItemResponseDto> schedules
+        List<ScheduleItemResponseDto> schedules,
+        List<MenuItemDetailResponseDto> menu
 ) {
-    public static TruckDetailResponseDto from(Truck truck, List<ScheduleItemResponseDto> schedules) {
+    public static TruckDetailResponseDto from(
+            Truck truck, List<ScheduleItemResponseDto> schedules, List<MenuItemDetailResponseDto> menu
+    ) {
         return new TruckDetailResponseDto(
                 truck.getId(),
                 truck.getOwner().getId(),
@@ -26,7 +30,8 @@ public record TruckDetailResponseDto(
                 truck.getStatus(),
                 truck.getCreatedAt(),
                 truck.getUpdatedAt(),
-                schedules
+                schedules,
+                menu
         );
     }
 }

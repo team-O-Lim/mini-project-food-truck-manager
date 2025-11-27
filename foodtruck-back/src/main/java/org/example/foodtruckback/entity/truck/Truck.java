@@ -8,6 +8,9 @@ import org.example.foodtruckback.common.enums.TurckStatus;
 import org.example.foodtruckback.entity.user.User;
 import org.example.foodtruckback.entity.base.BaseTimeEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(
         name = "trucks",
@@ -36,4 +39,30 @@ public class Truck extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 50)
     private TurckStatus status = TurckStatus.ACTIVE;
+
+    @OneToMany(mappedBy = "truck", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MenuItem> menus = new ArrayList<>();
+
+    public Truck(User owner, String name, String cuisine, TurckStatus status) {
+        this.owner = owner;
+        this.name = name;
+        this.cuisine = cuisine;
+        this.status = status != null ? status : TurckStatus.ACTIVE;
+    }
+
+    public void update(String name, String cuisine, TurckStatus status) {
+        if (name != null && !name.isBlank()) this.name = name;
+        if (cuisine != null && !cuisine.isBlank()) this.cuisine = cuisine;
+        if (status != null) this.status = status;
+    }
+
+    public void addMenu(MenuItem menu) {
+        menus.add(menu);
+        menu.setTruck(this);
+    }
+
+    public void removeMenu(MenuItem menu) {
+        menus.remove(menu);
+        menu.setTruck(null);
+    }
 }

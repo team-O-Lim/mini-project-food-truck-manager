@@ -39,4 +39,24 @@ public class MenuItem extends BaseTimeEntity {
 
     @Column(length = 255)
     private String optionText;
+
+    public MenuItem(Truck truck, String name, int price, String optionText) {
+        this.truck = truck;
+        this.name = name;
+        this.price = price;
+        this.optionText = optionText;
+        this.isSoldOut = false;
+    }
+
+    // DTO 기반 수정 메서드
+    public void update(String name, Integer price, Boolean isSoldOut, String optionText) {
+        if (name != null && !name.isBlank()) this.name = name;
+        if (price != null) this.price = price;
+        if (isSoldOut != null) this.isSoldOut = isSoldOut;
+        if (optionText != null) this.optionText = optionText;
+    }
+
+    public void setTruck(Truck truck) {
+        this.truck = truck;
+    }
 }
