@@ -15,10 +15,10 @@ public class UserPrincipalMapper {
 
     private final UserRepository userRepository;
 
-    public UserPrincipal toPrincipal(@NonNull String name) {
+    public UserPrincipal toPrincipal(@NonNull String loginId) {
 
-        User user = userRepository.findWithRoleByName(name)
-                .orElseThrow(() -> new RuntimeException("User not found: " + name));
+        User user = userRepository.findWithRoleByLoginId(loginId)
+                .orElseThrow(() -> new RuntimeException("User not found: " + loginId));
 
         return map(user);
     }
@@ -31,14 +31,15 @@ public class UserPrincipalMapper {
                         : user.getUserRoles().stream()
                         .map(role -> {
                             String r = role.getRole().getName().name();
-                            String name = r.startsWith("ROLE_") ? r : "ROLE_" + r;
+                            String name = r.startsWith("ROLE") ? r : "ROLE_" + r;
+
                             return new SimpleGrantedAuthority(name);
                         })
                         .toList();
 
         return  UserPrincipal.builder()
                 .id(user.getId())
-                .username(user.getName())
+                .loginId(user.getLoginId())
                 .password(user.getPassword())
                 .authorities(authorities)
                 .accountNonExpired(true)
