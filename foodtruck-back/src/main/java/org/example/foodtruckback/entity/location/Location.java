@@ -1,6 +1,7 @@
 package org.example.foodtruckback.entity.location;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
@@ -31,4 +32,21 @@ public class Location {
 
     @Column(name = "created_at", nullable = false , columnDefinition = "DATETIME(6)")
     private LocalDateTime createdAt;
+
+    @Builder
+    public Location(String name, String address, BigDecimal latitude, BigDecimal longitude, LocalDateTime createdAt) {
+        this.name = name;
+        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.createdAt = createdAt;
+    }
+
+
+    public void updatedLocation(String name, String address, BigDecimal latitude, BigDecimal longitude) {
+        this.name = name;
+        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 }

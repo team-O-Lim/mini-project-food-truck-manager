@@ -19,7 +19,7 @@ public interface UserService {
 
     ResponseDto<List<UserListResponseDto>> getAllUsers();
 
-    ResponseDto<UserDetaileResponseDto> getByUserId(UserPrincipal principal);
+    ResponseDto<UserDetaileResponseDto> getById(UserPrincipal principal);
 
     ResponseDto<UserDetaileResponseDto> updateByUserId(UserPrincipal principal, @Valid UserUpdateRequestDto request);
 

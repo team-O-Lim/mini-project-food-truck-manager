@@ -2,8 +2,8 @@ package org.example.foodtruckback.common.constants.reservation;
 
 import org.example.foodtruckback.common.constants.ApiBase;
 
-public class Reservation {
-    private Reservation () {}
+public class ReservationApi {
+    private ReservationApi() {}
 
     public static final String ROOT = ApiBase.BASE + "/reservations";
 

@@ -3,9 +3,11 @@ package org.example.foodtruckback.dto.truck.response;
 import org.example.foodtruckback.common.enums.TurckStatus;
 import org.example.foodtruckback.dto.menuItem.response.MenuItemDetailResponseDto;
 import org.example.foodtruckback.dto.schedule.response.ScheduleItemResponseDto;
+import org.example.foodtruckback.entity.truck.Schedule;
 import org.example.foodtruckback.entity.truck.Truck;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 
 public record TruckDetailResponseDto(
@@ -17,11 +19,21 @@ public record TruckDetailResponseDto(
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
         List<ScheduleItemResponseDto> schedules,
-        List<MenuItemDetailResponseDto> menu
+        List<MenuItemDetailResponseDto> menu,
+        String locationSummary
 ) {
     public static TruckDetailResponseDto from(
-            Truck truck, List<ScheduleItemResponseDto> schedules, List<MenuItemDetailResponseDto> menu
+            Truck truck,
+            List<ScheduleItemResponseDto> schedules,
+            List<MenuItemDetailResponseDto> menu
     ) {
+
+        String locationSummary = truck.getSchedules().stream()
+                .filter(Schedule::isNowActive)
+                .max(Comparator.comparing(Schedule::getStartTime)) // 여러개라면 최근 시작 스케줄 선택
+                .map(Schedule::getLocationName)
+                .orElse("현재 운영하지 않음");
+
         return new TruckDetailResponseDto(
                 truck.getId(),
                 truck.getOwner().getId(),
@@ -31,7 +43,8 @@ public record TruckDetailResponseDto(
                 truck.getCreatedAt(),
                 truck.getUpdatedAt(),
                 schedules,
-                menu
+                menu,
+                locationSummary
         );
     }
 }
