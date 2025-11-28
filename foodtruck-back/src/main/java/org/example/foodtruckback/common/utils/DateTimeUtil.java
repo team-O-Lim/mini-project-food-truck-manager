@@ -23,6 +23,16 @@ public class DateTimeUtil {
         return zdtKst.format(KST_FORMAT);
     }
 
+    public static String toKstString(Instant utcLocalDateTime) {
+        if(utcLocalDateTime == null) return null;
+
+        ZonedDateTime zdtKst = utcLocalDateTime
+                .atZone(ZONE_UTC)
+                .withZoneSameInstant(ZONE_KST);
+
+        return zdtKst.format(KST_FORMAT);
+    }
+
     public static String toUtcIsoString(LocalDateTime utcLocalDateTime) {
         if (utcLocalDateTime == null) return null;
 

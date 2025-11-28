@@ -5,10 +5,12 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.example.foodtruckback.common.enums.RoleType;
 import org.example.foodtruckback.entity.base.BaseTimeEntity;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(
@@ -61,5 +63,23 @@ public class User extends BaseTimeEntity {
         this.loginId = loginId;
         this.password = password;
         this.email = email;
+    }
+
+    public void addRole(Role role) {
+        boolean exists = userRoles.stream().anyMatch(ur -> ur.getRole().equals(role));
+
+        if (!exists) {
+            userRoles.add(new UserRole(this, role));
+        }
+    }
+
+    public void deleteRole(Role role) {
+        userRoles.removeIf(ur -> ur.getRole().equals(role));
+    }
+
+    public Set<RoleType> getRoleTypes() {
+        return userRoles.stream()
+                .map(ur -> ur.getRole().getName())
+                .collect(Collectors.toUnmodifiableSet());
     }
 }

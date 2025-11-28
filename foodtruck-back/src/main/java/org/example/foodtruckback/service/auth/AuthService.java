@@ -14,7 +14,7 @@ import org.example.foodtruckback.dto.auth.response.PasswordVerifyResponseDto;
 import org.example.foodtruckback.dto.auth.response.SignupResponseDto;
 
 public interface AuthService {
-    ResponseDto<SignupResponseDto> sign(@Valid SignupRequestDto request, HttpServletResponse response);
+    ResponseDto<SignupResponseDto> sign(@Valid SignupRequestDto request);
     ResponseDto<LoginResponseDto> login(@Valid LoginRequestDto request, HttpServletResponse response);
     ResponseDto<Void> logout(HttpServletRequest request, HttpServletResponse response);
 
