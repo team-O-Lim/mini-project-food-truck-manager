@@ -4,8 +4,6 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.math.BigDecimal;
-
 public record MenuItemUpdateRequestDto(
         @Size(max = 100, message = "음식명은 최대 100자 입니다.")
         String name,

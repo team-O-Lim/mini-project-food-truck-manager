@@ -3,7 +3,6 @@ package org.example.foodtruckback.service.truck.impl;
 import lombok.RequiredArgsConstructor;
 import org.example.foodtruckback.dto.ResponseDto;
 import org.example.foodtruckback.dto.menuItem.response.MenuItemDetailResponseDto;
-import org.example.foodtruckback.dto.menuItem.response.MenuListItemResponseDto;
 import org.example.foodtruckback.dto.schedule.response.ScheduleItemResponseDto;
 import org.example.foodtruckback.dto.truck.request.TruckCreateRequestDto;
 import org.example.foodtruckback.dto.truck.request.TruckUpdateRequestDto;
