@@ -35,9 +35,7 @@ public class RefreshToken extends BaseTimeEntity {
     )
     private User user;
 
-    @Lob
-    @JdbcTypeCode(SqlTypes.LONGVARCHAR)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 350)
     private String token;
 
     @Column(nullable = false)
