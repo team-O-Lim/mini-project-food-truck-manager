@@ -2,9 +2,11 @@ package org.example.foodtruckback.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.nimbusds.jwt.util.DateUtils;
 import lombok.Builder;
 import lombok.Getter;
 import org.example.foodtruckback.common.enums.ErrorCode;
+import org.example.foodtruckback.common.utils.DateTimeUtil;
 
 import java.awt.*;
 import java.time.Instant;
@@ -15,7 +17,7 @@ public class ResponseDto<T> {
     private final boolean success;
     private final String message;
     private final T data;
-    private final Instant timestamp;
+    private final String timestamp;
 
     private Integer status;
     private final String code;
@@ -25,7 +27,7 @@ public class ResponseDto<T> {
             boolean success,
             String message,
             T data,
-            Instant timestamp,
+            String timestamp,
             Integer status,
             String code
     ) {
@@ -43,7 +45,7 @@ public class ResponseDto<T> {
                 .message(message)
                 .data(data)
                 .status(200)
-                .timestamp(Instant.now())
+                .timestamp(DateTimeUtil.toKstString(Instant.now()))
                 .build();
     }
 
@@ -52,7 +54,7 @@ public class ResponseDto<T> {
                 .success(true)
                 .message(message)
                 .status(200)
-                .timestamp(Instant.now())
+                .timestamp(DateTimeUtil.toKstString(Instant.now()))
                 .build();
     }
 
@@ -62,7 +64,7 @@ public class ResponseDto<T> {
                 .message("success")
                 .data(data)
                 .status(200)
-                .timestamp(Instant.now())
+                .timestamp(DateTimeUtil.toKstString(Instant.now()))
                 .build();
     }
 
@@ -71,7 +73,7 @@ public class ResponseDto<T> {
                 .success(false)
                 .message(message)
                 .status(400)
-                .timestamp(Instant.now())
+                .timestamp(DateTimeUtil.toKstString(Instant.now()))
                 .build();
     }
 
@@ -80,7 +82,7 @@ public class ResponseDto<T> {
                 .success(false)
                 .message(message)
                 .status(httpStatus)
-                .timestamp(Instant.now())
+                .timestamp(DateTimeUtil.toKstString(Instant.now()))
                 .build();
     }
 
@@ -90,7 +92,7 @@ public class ResponseDto<T> {
                 .message(message)
                 .status(httpStatus)
                 .code(code)
-                .timestamp(Instant.now())
+                .timestamp(DateTimeUtil.toKstString(Instant.now()))
                 .build();
     }
 
@@ -100,7 +102,7 @@ public class ResponseDto<T> {
                 .message(errorCode.getMessage())
                 .status(errorCode.getStatus().value())
                 .code(errorCode.getCode())
-                .timestamp(Instant.now())
+                .timestamp(DateTimeUtil.toKstString(Instant.now()))
                 .build();
     }
 }

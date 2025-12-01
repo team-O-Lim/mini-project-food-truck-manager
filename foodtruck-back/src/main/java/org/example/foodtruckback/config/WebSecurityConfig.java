@@ -111,6 +111,9 @@ public class WebSecurityConfig {
                             // .permitAll(): 인증/인가 없이 모두 가능
                             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
+                            // users / auth
+                            .requestMatchers("/api/v1/auths/**").permitAll()
+
 
                             .requestMatchers(
                                     "/api/v1/auth/**",
