@@ -24,5 +24,5 @@ public interface AuthService {
     ResponseDto<LoginResponseDto> refreshAccessToken(HttpServletRequest request, HttpServletResponse response);
     ResponseDto<PasswordVerifyResponseDto> verifyPasswordToken(String token);
 
-
+    ResponseDto<Void> sendPasswordResetEmail(String email);
 }
