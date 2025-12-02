@@ -82,4 +82,8 @@ public class User extends BaseTimeEntity {
                 .map(ur -> ur.getRole().getName())
                 .collect(Collectors.toUnmodifiableSet());
     }
+
+    public void changePassword(String password) {
+        this.password = password;
+    }
 }
