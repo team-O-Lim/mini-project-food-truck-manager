@@ -16,11 +16,13 @@ import org.example.foodtruckback.repository.truck.TruckRepository;
 import org.example.foodtruckback.repository.user.UserRepository;
 import org.example.foodtruckback.service.truck.TruckService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class TruckServiceImpl implements TruckService {
     public final TruckRepository truckRepository;
     public final UserRepository userRepository;
@@ -28,9 +30,12 @@ public class TruckServiceImpl implements TruckService {
     private final MenuItemRepository menuItemRepository;
 
     @Override
+    @Transactional
     public ResponseDto<TruckDetailResponseDto> createTruck(TruckCreateRequestDto request) {
-        User owner = userRepository.findById(1L)
-                .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+
+        User owner = authorizationChecker.getCurrentUser();
+
+        authorizationChecker.checkManagerOrAdmin();
 
         Truck truck = new Truck(
                 owner,
@@ -55,15 +60,11 @@ public class TruckServiceImpl implements TruckService {
         Truck truck = truckRepository.findById(truckId)
                 .orElseThrow(() -> new IllegalArgumentException("트럭이 존재하지 않습니다."));
 
-        List<ScheduleItemResponseDto> schedules = scheduleRepository
-                .findByTruckId(truckId)
-                .stream()
+        List<ScheduleItemResponseDto> schedules = scheduleRepository.findByTruckId(truckId).stream()
                 .map(ScheduleItemResponseDto::from)
                 .toList();
 
-        List<MenuItemDetailResponseDto> menuItems = menuItemRepository
-                .findByTruckId(truckId)
-                .stream()
+        List<MenuItemDetailResponseDto> menuItems = menuItemRepository.findByTruckId(truckId).stream()
                 .map(MenuItemDetailResponseDto::from)
                 .toList();
 
@@ -73,6 +74,7 @@ public class TruckServiceImpl implements TruckService {
     }
 
     @Override
+    @Transactional
     public ResponseDto<TruckDetailResponseDto> updateTruck(Long truckId, TruckUpdateRequestDto request) {
         Truck truck = truckRepository.findById(truckId)
                 .orElseThrow(() -> new IllegalArgumentException("트럭이 존재하지 않습니다."));
@@ -83,15 +85,11 @@ public class TruckServiceImpl implements TruckService {
                 request.status()
         );
 
-        List<ScheduleItemResponseDto> schedules = scheduleRepository
-                .findByTruckId(truckId)
-                .stream()
+        List<ScheduleItemResponseDto> schedules = scheduleRepository.findByTruckId(truckId).stream()
                 .map(ScheduleItemResponseDto::from)
                 .toList();
 
-        List<MenuItemDetailResponseDto> menuItems = menuItemRepository
-                .findByTruckId(truckId)
-                .stream()
+        List<MenuItemDetailResponseDto> menuItems = menuItemRepository.findByTruckId(truckId).stream()
                 .map(MenuItemDetailResponseDto::from)
                 .toList();
 
@@ -101,6 +99,7 @@ public class TruckServiceImpl implements TruckService {
     }
 
     @Override
+    @Transactional
     public ResponseDto<?> deleteTruck(Long truckId) {
         Truck truck = truckRepository.findById(truckId)
                 .orElseThrow(() -> new IllegalArgumentException("트럭이 존재하지 않습니다."));
@@ -112,8 +111,7 @@ public class TruckServiceImpl implements TruckService {
 
     @Override
     public ResponseDto<List<TruckListItemResponseDto>> getAllTrucks() {
-        List<TruckListItemResponseDto> list = truckRepository.findAll()
-                .stream()
+        List<TruckListItemResponseDto> list = truckRepository.findAll().stream()
                 .map(TruckListItemResponseDto::from)
                 .toList();
 

@@ -1,6 +1,7 @@
 package org.example.foodtruckback.entity.truck;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,15 +49,18 @@ public class MenuItem extends BaseTimeEntity {
         this.isSoldOut = false;
     }
 
-    // DTO 기반 수정 메서드
-    public void update(String name, Integer price, Boolean isSoldOut, String optionText) {
+    public void update(String name, Integer price, String optionText, Boolean isSoldOut ) {
         if (name != null && !name.isBlank()) this.name = name;
         if (price != null) this.price = price;
-        if (isSoldOut != null) this.isSoldOut = isSoldOut;
         if (optionText != null) this.optionText = optionText;
+        if (isSoldOut != null) this.isSoldOut = isSoldOut;
     }
 
     public void setTruck(Truck truck) {
         this.truck = truck;
+    }
+
+    public void setSoldOut(Boolean soldOut) {
+        this.isSoldOut = soldOut;
     }
 }

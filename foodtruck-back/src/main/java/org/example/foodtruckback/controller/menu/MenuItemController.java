@@ -12,6 +12,8 @@ import org.example.foodtruckback.service.menu.MenuItemService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(MenuApi.ROOT)
 @RequiredArgsConstructor
@@ -38,10 +40,10 @@ public class MenuItemController {
     }
 
     @GetMapping(MenuApi.TRUCK_MENU_VIEW)
-    public ResponseEntity<ResponseDto<MenuItemDetailResponseDto>> getTruckMenus(
+    public ResponseEntity<ResponseDto<List<MenuItemDetailResponseDto>>> getTruckMenus(
             @PathVariable Long truckId
     ) {
-        ResponseDto<MenuItemDetailResponseDto> data = menuItemService.getTruckMenus(truckId);
+        ResponseDto<List<MenuItemDetailResponseDto>> data = menuItemService.getTruckMenus(truckId);
 
         return ResponseEntity.ok(data);
     }
