@@ -37,6 +37,10 @@ CREATE TABLE roles (
   role_name VARCHAR(30) PRIMARY KEY
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+INSERT INTO roles values ('USER');
+INSERT INTO roles values ('MANAGER');
+INSERT INTO roles values ('ADMIN');
+
 CREATE TABLE user_roles (
   id BIGINT PRIMARY KEY AUTO_INCREMENT,
   user_id BIGINT NOT NULL,
@@ -49,7 +53,7 @@ CREATE TABLE user_roles (
 CREATE TABLE IF NOT EXISTS refresh_tokens (
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL UNIQUE,
-	token VARCHAR(50) NOT NULL,
+	token VARCHAR(350) NOT NULL,
 	expiry DATETIME(6) NOT NULL,
     
     created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
@@ -177,3 +181,5 @@ SELECT * FROM trucks;
 SELECT * FROM user_roles;
 SELECT * FROM roles;
 SELECT * FROM users;
+
+USE `mini-foodtruck-db`;

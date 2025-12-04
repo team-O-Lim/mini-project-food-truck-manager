@@ -27,12 +27,11 @@ public class AuthController {
     //회원 가입
     @PostMapping(AuthApi.SIGNUP)
     public ResponseEntity<ResponseDto<SignupResponseDto>> signup(
-            @Valid @RequestBody SignupRequestDto request,
-            HttpServletResponse response
+            @Valid @RequestBody SignupRequestDto request
     ) {
-        ResponseDto<SignupResponseDto> result = authService.sign(request, response);
+        ResponseDto<SignupResponseDto> result = authService.sign(request);
 
-        return ResponseEntity.status(response.getStatus()).body(result);
+        return ResponseEntity.status(result.getStatus()).body(result);
     }
 
     // 로그인

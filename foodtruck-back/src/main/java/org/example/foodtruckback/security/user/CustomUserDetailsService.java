@@ -18,16 +18,16 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final UserPrincipalMapper userPrincipalMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
 
-        if (username == null || username.trim().isEmpty()) {
+        if (loginId == null || loginId.trim().isEmpty()) {
             throw new UsernameNotFoundException("Invalid username");
         }
 
-        String loginId = username.trim();
+        loginId = loginId.trim();
 
 
-        User user = userRepository.findByName(loginId)
+        User user = userRepository.findByLoginId(loginId)
                 .orElseThrow(() -> new UsernameNotFoundException("Invalid username or password"));
 
         return userPrincipalMapper.map(user);

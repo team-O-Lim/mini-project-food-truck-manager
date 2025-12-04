@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.example.foodtruckback.common.enums.RoleType;
 import org.example.foodtruckback.entity.base.BaseTimeEntity;
 import org.example.foodtruckback.entity.user.User;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
 
@@ -46,7 +48,7 @@ public class RefreshToken extends BaseTimeEntity {
         this.expiry =expiry;
     }
 
-    public RefreshToken(String token, Instant expiry) {
+    public void renew(String newToken, Instant newExpiry) {
         this.token =token;
         this.expiry =expiry;
     }

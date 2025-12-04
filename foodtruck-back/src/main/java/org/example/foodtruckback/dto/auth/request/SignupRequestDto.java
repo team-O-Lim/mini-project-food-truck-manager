@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.example.foodtruckback.entity.user.User;
 
+import java.security.AuthProvider;
+
 public record SignupRequestDto(
     @NotBlank(message = "이름은 필수입니다.")
     @Size(max = 50)
@@ -28,6 +30,7 @@ public record SignupRequestDto(
 
     @Size(max = 255)
     String phone
+
 ) {
     public User toEntity(String encodedPassword) {
         return User.builder()

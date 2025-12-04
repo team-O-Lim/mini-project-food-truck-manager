@@ -13,7 +13,7 @@ import java.util.Collection;
 @ToString(exclude = "password")
 public class UserPrincipal implements UserDetails {
     private final Long id;
-    private final String username;
+    private final String loginId;
     @JsonIgnore
     private  final String password;
     private final Collection<? extends GrantedAuthority> authorities;
@@ -26,7 +26,7 @@ public class UserPrincipal implements UserDetails {
     @Builder
     private UserPrincipal (
             Long id,
-            String username,
+            String loginId,
             String password,
             Collection<? extends GrantedAuthority> authorities,
             boolean accountNonExpired,
@@ -35,7 +35,7 @@ public class UserPrincipal implements UserDetails {
             boolean enabled
     ) {
         this.id = id;
-        this.username = username;
+        this.loginId = loginId;
         this.password = password;
         this.authorities = authorities;
         this.accountNonExpired = accountNonExpired;
@@ -45,7 +45,7 @@ public class UserPrincipal implements UserDetails {
     }
     @Override public Collection<? extends GrantedAuthority> getAuthorities() { return authorities; }
     @Override public String getPassword() { return password; }
-    @Override public String getUsername() { return username; }
+    @Override public String getUsername() { return loginId; }
     @Override public boolean isAccountNonExpired() { return accountNonExpired; }
     @Override public boolean isAccountNonLocked() { return accountNonLocked; }
     @Override public boolean isCredentialsNonExpired() { return credentialsNonExpired; }
