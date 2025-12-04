@@ -1,6 +1,7 @@
 package org.example.foodtruckback.entity.order;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.foodtruckback.entity.truck.MenuItem;
@@ -30,4 +31,15 @@ public class OrderItem {
 
     @Column(name = "unit_price", nullable = false)
     private int price;
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    @Builder
+    public OrderItem(MenuItem menuItem, int qty, int price) {
+        this.menuItem = menuItem;
+        this.qty = qty;
+        this.price = price;
+    }
 }

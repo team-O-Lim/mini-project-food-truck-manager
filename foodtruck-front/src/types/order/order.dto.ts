@@ -1,8 +1,14 @@
-import type { CreateOrderItem, OrderItem, OrderSource, OrderStatus, UpdateOrderItem } from "./order.type";
+import type {
+  CreateOrderItem,
+  OrderItem,
+  OrderSource,
+  OrderStatus,
+  UpdateOrderItem,
+} from "./order.type";
 
 export interface OrderCreateRequest {
   scheduleId: number;
-  userId?: number | null
+  userId?: number | null;
   source: OrderSource;
   reservationId?: number | null;
   items: CreateOrderItem[];
@@ -16,6 +22,7 @@ export interface OrderDetailResponse {
   id: number;
   scheduleId: number;
   userId: number | null;
+  username: string | null;
   source: OrderSource;
   reservationId: number | null;
   amount: number;
@@ -29,14 +36,39 @@ export interface OrderDetailResponse {
   items: OrderItem[];
 }
 
-export interface OrderListItemResponse {
+export interface UserOrderListItemResponse {
+  id: number;
+  scheduleId: number;
+  userId: number | null;
+  amount: number;
+  currency: "KRW";
+  status: OrderStatus;
+  createdAt: string;
+}
+
+export interface OwnerOrderListItemResponse {
   id: number;
   scheduleId: number;
   userId: number | null;
   source: OrderSource;
   amount: number;
+  currency: "KRW";
   status: OrderStatus;
   createdAt: string;
 }
 
-export type OrderListResponse = OrderListItemResponse[];
+export interface AdminOrderListItemResponse {
+  id: number;
+  scheduleId: number;
+  userId: number | null;
+  username: string | null;
+  source: OrderSource;
+  amount: number;
+  currency: "KRW";
+  status: OrderStatus;
+  createdAt: string;
+}
+
+export type UserOrderListResponse = UserOrderListItemResponse[];
+export type OwnerOrderListResponse = OwnerOrderListItemResponse[];
+export type AdminOrderListResponse = AdminOrderListItemResponse[];

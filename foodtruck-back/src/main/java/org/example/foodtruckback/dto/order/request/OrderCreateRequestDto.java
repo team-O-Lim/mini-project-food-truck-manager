@@ -1,5 +1,6 @@
 package org.example.foodtruckback.dto.order.request;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.example.foodtruckback.common.enums.OrderSource;
 import org.example.foodtruckback.dto.orderItem.request.CreateOrderItemRequestDto;
@@ -12,7 +13,7 @@ public record OrderCreateRequestDto(
         @NotNull
         OrderSource source,
         Long reservationId,
-        @NotNull
+        @NotNull @Valid
         List<CreateOrderItemRequestDto> items
 ) {
 }

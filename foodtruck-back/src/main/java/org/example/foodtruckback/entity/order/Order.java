@@ -2,6 +2,7 @@ package org.example.foodtruckback.entity.order;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.foodtruckback.common.enums.OrderSource;
@@ -11,6 +12,8 @@ import org.example.foodtruckback.entity.base.BaseTimeEntity;
 import org.example.foodtruckback.entity.reservation.Reservation;
 import org.example.foodtruckback.entity.truck.Schedule;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(
@@ -56,4 +59,39 @@ public class Order extends BaseTimeEntity {
 
     @Column(name = "paid_at")
     private LocalDateTime paidAt;
+
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+    @Builder
+    public Order(
+            Schedule schedule,
+            User user,
+            OrderSource source,
+            Reservation reservation,
+            OrderStatus status,
+            int amount,
+            String currency,
+            List<OrderItem> orderItems
+    ) {
+        this.schedule = schedule;
+        this.user = user;
+        this.source = source;
+        this.reservation = reservation;
+        this.status = status;
+        this.amount = amount;
+        this.currency = currency;
+        if(orderItems != null) {
+            this.orderItems = orderItems;
+            this.orderItems.forEach(item -> item.setOrder(this));
+        }
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setStatus(OrderStatus orderStatus) {
+        this.status = orderStatus;
+    }
 }
