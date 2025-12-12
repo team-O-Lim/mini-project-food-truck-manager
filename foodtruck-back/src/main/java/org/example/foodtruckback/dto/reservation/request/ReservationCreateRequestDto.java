@@ -3,7 +3,6 @@ package org.example.foodtruckback.dto.reservation.request;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record ReservationCreateRequestDto(
@@ -18,4 +17,4 @@ public record ReservationCreateRequestDto(
 
         @Size(max = 255)
         String note
-){}
+) {}

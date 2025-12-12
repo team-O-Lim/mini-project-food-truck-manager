@@ -1,6 +1,7 @@
 package org.example.foodtruckback.common.constants.reservation;
 
 import org.example.foodtruckback.common.constants.ApiBase;
+import org.example.foodtruckback.common.constants.user.UserApi;
 
 public class ReservationApi {
     private ReservationApi() {}

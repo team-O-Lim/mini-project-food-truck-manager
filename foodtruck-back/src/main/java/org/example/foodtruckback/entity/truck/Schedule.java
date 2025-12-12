@@ -46,4 +46,14 @@ public class Schedule extends BaseTimeEntity {
 
     @Column(name = "max_reservations", nullable = false)
     private int maxReservations = 100;
+
+    public boolean isNowActive() {
+        LocalDateTime now = LocalDateTime.now();
+        return !now.isBefore(startTime) && !now.isAfter(endTime)
+                && status == ScheduleStatus.OPEN;
+    }
+
+    public String getLocationName() {
+        return location != null ? location.getName() : "위치 미정";
+    }
 }
