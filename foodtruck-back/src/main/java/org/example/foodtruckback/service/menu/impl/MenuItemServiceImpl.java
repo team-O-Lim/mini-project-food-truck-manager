@@ -18,13 +18,14 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class MenuItemServiceImpl implements MenuItemService {
 
     private final MenuItemRepository menuItemRepository;
     private final TruckRepository truckRepository;
 
     @Override
+    @Transactional
     public ResponseDto<MenuItemDetailResponseDto> createMenu(MenuItemCreateRequestDto request) {
 
         Truck truck = truckRepository.findById(request.truckId())
@@ -66,6 +67,7 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
     @Override
+    @Transactional
     public ResponseDto<MenuItemDetailResponseDto> updateMenu(
             Long menuId, MenuItemUpdateRequestDto request
     ) {
@@ -83,6 +85,7 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
     @Override
+    @Transactional
     public ResponseDto<?> deleteMenu(Long menuId) {
 
         MenuItem menuItem = menuItemRepository.findById(menuId)
@@ -94,6 +97,7 @@ public class MenuItemServiceImpl implements MenuItemService {
     }
 
     @Override
+    @Transactional
     public ResponseDto<MenuItemDetailResponseDto> setSoldOut(
             Long menuId, MenuItemIsSoldoutRequestDto request
     ) {

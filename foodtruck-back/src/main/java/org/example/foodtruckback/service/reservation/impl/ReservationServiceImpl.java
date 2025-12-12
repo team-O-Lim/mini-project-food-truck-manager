@@ -25,6 +25,7 @@ public class ReservationServiceImpl implements ReservationService {
     private final ScheduleRepository scheduleRepository;
 
     @Override
+    @Transactional
     public ReservationResponseDto createReservation(
             User user, ReservationCreateRequestDto request
     ) {
@@ -65,6 +66,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    @Transactional
     public ReservationResponseDto updateStatus(
             User user, Long reservationId, String status, String note
     ) {
