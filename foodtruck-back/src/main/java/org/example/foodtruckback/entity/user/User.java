@@ -65,6 +65,18 @@ public class User extends BaseTimeEntity {
         this.email = email;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public void addRole(Role role) {
         boolean exists = userRoles.stream().anyMatch(ur -> ur.getRole().equals(role));
 
