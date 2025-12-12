@@ -14,6 +14,7 @@ import org.example.foodtruckback.repository.menuItem.MenuItemRepository;
 import org.example.foodtruckback.repository.schedule.ScheduleRepository;
 import org.example.foodtruckback.repository.truck.TruckRepository;
 import org.example.foodtruckback.repository.user.UserRepository;
+import org.example.foodtruckback.security.util.AuthorizationChecker;
 import org.example.foodtruckback.service.truck.TruckService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,7 @@ public class TruckServiceImpl implements TruckService {
     public final UserRepository userRepository;
     public final ScheduleRepository scheduleRepository;
     private final MenuItemRepository menuItemRepository;
+    private final AuthorizationChecker authorizationChecker;
 
     @Override
     @Transactional

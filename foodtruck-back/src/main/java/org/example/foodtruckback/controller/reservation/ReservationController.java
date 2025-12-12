@@ -39,7 +39,7 @@ public class ReservationController {
         return ResponseEntity.ok(reservationService.getReservation(user, reservationId));
     }
 
-    @GetMapping(ReservationApi.BY_ID)
+    @GetMapping
     public ResponseEntity<List<ReservationListResponseDto>> getReservationList(
             @AuthenticationPrincipal User user
     ) {
