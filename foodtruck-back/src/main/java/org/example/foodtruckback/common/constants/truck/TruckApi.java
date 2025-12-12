@@ -9,5 +9,4 @@ public class TruckApi {
 
     public static final String BY_ID = "/{truckId}";
 
-    public static final String TRUCK_MENU = BY_ID + "/menu";
 }

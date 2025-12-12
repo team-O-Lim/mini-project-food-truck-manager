@@ -3,7 +3,7 @@ package org.example.foodtruckback.common.enums;
 public enum ReservationStatus {
     PENDING,
     CONFIRMED,
-    CANCELLED,
+    CANCELED,
     NO_SHOW,
     REFUNDED
 }

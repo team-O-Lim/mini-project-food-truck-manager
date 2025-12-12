@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @Table(
         name = "reservations",
         indexes = {
-                @Index(name = "idx_resv_user_time", columnList = "start_time, end_time"),
-                @Index(name = "idx_resv_schedule", columnList = "truck_id, status"),
+                @Index(name = "idx_resv_user_time", columnList = "user_id, pickup_time"),
+                @Index(name = "idx_resv_schedule", columnList = "schedule_id, status"),
         }
 )
 @Getter
@@ -47,4 +47,24 @@ public class Reservation extends BaseTimeEntity {
 
         @Column(length = 255)
         private String note;
+
+        public static Reservation createReservation(
+                User user, Schedule schedule, LocalDateTime pickupTime, int totalAmount, String note
+        ) {
+                Reservation reservation = new Reservation();
+                reservation.user = user;
+                reservation.schedule = schedule;
+                reservation.pickupTime = pickupTime;
+                reservation.totalAmount = totalAmount;
+                reservation.note = note;
+                reservation.status = ReservationStatus.PENDING;
+                return reservation;
+        }
+
+        public void updateStatus(ReservationStatus newStatus, String note) {
+                this.status = newStatus;
+                if (note != null) {
+                        this.note = note;
+                }
+        }
 }
