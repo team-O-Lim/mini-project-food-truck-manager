@@ -4,6 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import org.example.foodtruckback.common.enums.RoleType;
 
 public record RoleAddRequestDto(
-        RoleType Name
+        String name
 ) {
 }
