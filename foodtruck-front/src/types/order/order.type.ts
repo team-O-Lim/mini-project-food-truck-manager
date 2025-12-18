@@ -13,6 +13,7 @@ export interface UpdateOrderItem {
 
 export interface OrderItem {
   menuItemId: number;
+  menuItemName: string;
   qty: number;
   unitPrice: number;
 }

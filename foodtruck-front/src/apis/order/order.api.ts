@@ -10,7 +10,9 @@ import { ORDER_PATH } from "./order.path";
 
 export const orderApi = {
   // 주문 생성
-  createOrder: async (request: OrderCreateRequest): Promise<OrderDetailResponse> => {
+  createOrder: async (
+    request: OrderCreateRequest
+  ): Promise<OrderDetailResponse> => {
     const res = await privateApi.post<ApiResponse<OrderDetailResponse>>(
       ORDER_PATH.CREATE,
       request
@@ -19,10 +21,28 @@ export const orderApi = {
     return res.data.data;
   },
 
-  // 주문 목록 조회
+  // 주문 목록 조회 - ADMIN
   getOrderList: async (): Promise<OrderListResponse> => {
     const res = await privateApi.get<ApiResponse<OrderListResponse>>(
-      ORDER_PATH.LIST
+      ORDER_PATH.LIST_ADMIN
+    );
+
+    return res.data.data;
+  },
+
+  // 주문 목록 조회 - USER
+  getMyOrders: async (): Promise<OrderListResponse> => {
+    const res = await privateApi.get<ApiResponse<OrderListResponse>>(
+      ORDER_PATH.LIST_USER
+    );
+
+    return res.data.data;
+  },
+
+  // 주문 목록 조회 - OWNER
+  getTruckOrders: async (truckId: number): Promise<OrderListResponse> => {
+    const res = await privateApi.get<ApiResponse<OrderListResponse>>(
+      ORDER_PATH.LIST_OWNER(truckId)
     );
 
     return res.data.data;
@@ -58,7 +78,7 @@ export const orderApi = {
     if (!res.data.success) throw new Error("주문 취소 실패");
   },
 
-  // 환불
+  // 주문 환불
   refundOrder: async (orderId: number): Promise<void> => {
     const res = await privateApi.put<ApiResponse<void>>(
       ORDER_PATH.REFUND(orderId)

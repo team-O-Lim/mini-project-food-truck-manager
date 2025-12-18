@@ -6,7 +6,9 @@ export const ORDER_PATH = {
   ROOT: ORDER_PREFIX,
 
   CREATE: ORDER_PREFIX,
-  LIST: ORDER_PREFIX,
+  LIST_ADMIN: ORDER_PREFIX,
+  LIST_USER: `${ORDER_PREFIX}/me`,
+  LIST_OWNER: (truckId: number) => `${ORDER_PREFIX}/trucks/${truckId}`,
 
   // 상세 조회 / 수정
   ORDERBYID: (orderId: number) => `${ORDER_PREFIX}/${orderId}`,
@@ -14,4 +16,4 @@ export const ORDER_PATH = {
 
   CANCEL: (orderId: number) => `${ORDER_PREFIX}/${orderId}/cancel`,
   REFUND: (orderId: number) => `${ORDER_PREFIX}/${orderId}/refund`,
-}
+};
